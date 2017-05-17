@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PrepTime">
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension"/>
+        <attr name="timerIcon" format="integer"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="QueRicoTextView">
+        <attr name="color" format="color" />
+        <attr name="fontType" format="string"/>
+        <attr name="textSizea" format="dimension"/>
+    </declare-styleable>
+</resources>
