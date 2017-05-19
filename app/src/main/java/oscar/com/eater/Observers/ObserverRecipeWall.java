@@ -15,6 +15,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import oscar.com.eater.Interfaces.AbstractObserver;
 import oscar.com.eater.Pojo.Recipe;
+import oscar.com.eater.Pojo.RecipesWrapper;
 import oscar.com.eater.R;
 import oscar.com.eater.Response.RandomRecipeRequestResponse;
 import oscar.com.eater.Adapter.RecipeViewAdapter;
@@ -66,12 +67,12 @@ public class ObserverRecipeWall extends AbstractObserver implements  Observer<St
     public void onNext(String value) {
         Gson gson = new Gson();
         RandomRecipeRequestResponse responseDeserialized = gson.fromJson(value, RandomRecipeRequestResponse.class);
-        List<Recipe> randomRecipes = responseDeserialized.getProducts();
+        RecipesWrapper randomRecipes = responseDeserialized.getProducts();
         if(mAddToView){
             RecipeViewAdapter adapter = (RecipeViewAdapter) mRecyclerView.getAdapter();
-            adapter.addToScrollable(randomRecipes);
+            adapter.addToScrollable(randomRecipes.getRecipes());
         } else {
-            RecipeViewAdapter adapter = new RecipeViewAdapter(randomRecipes,mContext);
+            RecipeViewAdapter adapter = new RecipeViewAdapter(randomRecipes.getRecipes(),mContext);
             mRecyclerView.setAdapter(adapter);
         }
         if(mImageView != null) {

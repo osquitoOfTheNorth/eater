@@ -1,5 +1,7 @@
 package oscar.com.eater.Observables;
 
+import android.util.Log;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;

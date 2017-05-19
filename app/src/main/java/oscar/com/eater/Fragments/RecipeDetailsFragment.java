@@ -36,14 +36,14 @@ public class RecipeDetailsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.recipe_detail_fragment,container,false);
         Bundle bundle = getArguments();
-        Recipe detailRecipe = (Recipe) bundle.getSerializable(ApplicationContants.getRecipeSerializableKey());
+//        Recipe detailRecipe = (Recipe) bundle.getSerializable(ApplicationContants.getRecipeSerializableKey());
         mImageViewBanner = (ImageView) v.findViewById(R.id.recipe_image_view_holder_detail_page);
         mRecipeInstructions = (ListView) v.findViewById(R.id.recipe_steps);
-        loadImageIntoImageView(detailRecipe.getImageSrcUrl(),mImageViewBanner);
-        Observable.create(new ObservableAnalyzedInstructionsRequest(detailRecipe.getId()))
-                  .subscribeOn(Schedulers.io())
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .subscribe(getParameterizedObserver());
+//        loadImageIntoImageView(detailRecipe.getImageSrcUrl(),mImageViewBanner);
+//        Observable.create(new ObservableAnalyzedInstructionsRequest(detailRecipe.getId()))
+//                  .subscribeOn(Schedulers.io())
+//                  .observeOn(AndroidSchedulers.mainThread())
+//                  .subscribe(getParameterizedObserver());
         return v;
 
 

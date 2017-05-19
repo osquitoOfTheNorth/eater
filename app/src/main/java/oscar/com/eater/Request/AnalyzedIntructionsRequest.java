@@ -15,15 +15,15 @@ public class AnalyzedIntructionsRequest {
     Request.Builder mRequestBuilder;
 
     public AnalyzedIntructionsRequest(int recipeID){
-        mRecipeID = recipeID;
-        mHttpBuilder = new HttpUrl.Builder();
-        mHttpBuilder.scheme(ApplicationContants.getHostScheme());
-        mHttpBuilder.host(ApplicationContants.getHostUrl());
-        mHttpBuilder.addPathSegment("recipes");
-        mHttpBuilder.addPathSegment(String.valueOf(recipeID));
-        mHttpBuilder.addPathSegment("analyzedInstructions");
-        mRequestBuilder = new Request.Builder();
-        mRequestBuilder.addHeader(ApplicationContants.getApiKeyMashapeHeaderName(),ApplicationContants.getApiKeyMashape());
+//        mRecipeID = recipeID;
+//        mHttpBuilder = new HttpUrl.Builder();
+//        mHttpBuilder.scheme(ApplicationContants.getHostScheme());
+//        mHttpBuilder.host(ApplicationContants.getHostUrl());
+//        mHttpBuilder.addPathSegment("recipes");
+//        mHttpBuilder.addPathSegment(String.valueOf(recipeID));
+//        mHttpBuilder.addPathSegment("analyzedInstructions");
+//        mRequestBuilder = new Request.Builder();
+//        mRequestBuilder.addHeader(ApplicationContants.getApiKeyMashapeHeaderName(),ApplicationContants.getApiConsumerKey());
     }
 
     public Request getAnalyzedInstructions(){

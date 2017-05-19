@@ -57,28 +57,17 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeHolder> {
     @Override
     public void onBindViewHolder(RecipeHolder holder, int position) {
         final Recipe recipe = mRecipes.get(position);
-        holder.isVegetarianImage.setImageDrawable(getVegetarianDrawable(recipe.isVegetarian()));
-        holder.isVegetarianImage.setImageAlpha(recipe.isVegetarian() ? 255 : 50);
-        holder.isCheapImage.setImageDrawable(getPriceRangeDrawable(recipe.getPricePerServing()));
-        holder.isVeganImage.setImageDrawable(getVeganDrawable(recipe.isVegan()));
-        holder.isVeganImage.setImageAlpha(recipe.isVegan() ? 255 : 50);
         holder.recipeTitle.setText(recipe.getRecipeName());
         holder.recipeImageView.setImageDrawable(mContext.getDrawable(R.drawable.recipe_image_placeholder));
-        holder.mPrepTimeView.setText(String.format("%s min",recipe.getTotalPreperationTimeInMinutes()));
-        holder.sourceName.setText(recipe.getSourceName());
-        Observable.create(new ObservableImageRequest(recipe.getImageSrcUrl()))
+        holder.sourceName.setText(recipe.getRecipeDescription());
+        Observable.create(new ObservableImageRequest(recipe.getRecipeImage()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserverImageDownloader(holder.recipeImageView, AnimationUtils.loadAnimation(mActivity.getApplicationContext(),R.anim.fade_in_animation)));
         holder.recipeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent recipeDetailIntent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(ApplicationContants.getRecipeSerializableKey(),recipe);
-                recipeDetailIntent.putExtras(bundle);
-                recipeDetailIntent.setClass(mContext,RecipeDetailsActivity.class);
-                mActivity.startActivity(recipeDetailIntent);
+
             }
         });
     }
