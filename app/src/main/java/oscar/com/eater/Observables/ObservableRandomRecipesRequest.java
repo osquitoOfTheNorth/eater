@@ -18,7 +18,7 @@ public class ObservableRandomRecipesRequest implements ObservableOnSubscribe<Str
     @Override
     public void subscribe(ObservableEmitter<String> e) throws Exception {
             OkHttpClient client = new OkHttpClient();
-            Response response = client.newCall(new RandomRecipeNetworkRequest().getRandomRecipes(10)).execute();
+            Response response = client.newCall(new RandomRecipeNetworkRequest(10).getRandomRecipes()).execute();
             e.onNext(response.body().string());
             e.onComplete();
     }

@@ -17,20 +17,21 @@ public class RecipeHolder extends  RecyclerView.ViewHolder{
     public ImageView recipeImageView;
     public TextView recipeTitle;
     public PrepTimeView mPrepTimeView;
-    public ImageView isVeganImage;
-    public ImageView isVegetarianImage;
-    public ImageView isCheapImage;
-    public TextView sourceName;
-
+    public TextView RecipeTypes;
+    public TextView Description;
     public RecipeHolder(View itemView) {
         super(itemView);
         recipeImageView = (ImageView) itemView.findViewById(R.id.recipe_image);
         recipeImageView.setClipToOutline(true);
         mPrepTimeView = (PrepTimeView) itemView.findViewById(R.id.prep_time);
         recipeTitle = (TextView) itemView.findViewById(R.id.title_text_box);
-        isCheapImage = (ImageView) itemView.findViewById(R.id.is_cheap_icon);
-        isVegetarianImage = (ImageView) itemView.findViewById(R.id.is_vegetarian_icon);
-        isVeganImage = (ImageView) itemView.findViewById(R.id.is_vegan_icon);
-        sourceName = (TextView) itemView.findViewById(R.id.source_name);
+        RecipeTypes = (TextView) itemView.findViewById(R.id.recipe_types);
+        Description = (TextView) itemView.findViewById(R.id.recipe_description);
+
+    }
+
+    public void setPrepTimeText(String text){
+        mPrepTimeView.setVisibility(View.VISIBLE);
+        mPrepTimeView.setText(text);
     }
 }

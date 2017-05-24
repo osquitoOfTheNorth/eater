@@ -17,69 +17,53 @@
             android:layout_width="285dp"
             android:layout_height="275dp"
             android:scaleType="fitXY"
+            android:layout_marginRight="3dp"
             android:id="@+id/recipe_image"
             android:background="@drawable/rounded_top_images"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:orientation="vertical">
             <oscar.com.eater.Views.QueRicoTextView
-                android:id="@+id/source_name"
-                custom:fontType="Nunito-Medium.tff"
+                android:id="@+id/recipe_types"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:layout_marginTop="10dp"
                 android:lineSpacingExtra="6.7sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
                 <oscar.com.eater.Views.QueRicoTextView
                     android:id="@+id/title_text_box"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textSize="20sp"
-                    android:layout_weight="2"
-                    android:lineSpacingExtra="6.7sp"/>
+                    android:gravity="top"
+                    android:layout_weight="2"/>
 
                 <oscar.com.eater.Views.PrepTimeView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
                     custom:textSize="12sp"
                     android:layout_weight="1"
                     custom:timerIcon="@drawable/timer"
                     android:id="@+id/prep_time"/>
             </LinearLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:id="@+id/is_cheap_icon"
-                        android:src="@drawable/ic_cheapest"/>
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:id="@+id/is_vegetarian_icon"
-                        android:src="@drawable/ic_vegetarian_enabled"/>
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:id="@+id/is_vegan_icon"
-                        android:src="@drawable/ic_vegan_enabled"/>
-                </LinearLayout>
-            </RelativeLayout>
+                android:layout_height="match_parent">
+                <oscar.com.eater.Views.QueRicoTextView
+                    android:id="@+id/recipe_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

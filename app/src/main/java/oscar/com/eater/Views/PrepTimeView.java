@@ -87,11 +87,12 @@ public class PrepTimeView extends View {
         super.onDraw(canvas);
         float centerX = (getWidth() / 2);
         float posY = getHeight();
-        int textLen = mTimeNumberText == null ? 0 : mTimeNumberText.length();
         if(mPainterText != null && mTimeNumberText != null) {
+            mPainterText.setTextAlign(Paint.Align.CENTER);
             Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(),mTimerIcon);
-            canvas.drawBitmap(icon,0,0,mPainterText);
-            canvas.drawText(mTimeNumberText, (centerX - (mPainterText.getTextScaleX() * textLen)), posY, mPainterText);
+            int iconWidth = Math.round(icon.getWidth() * 0.5f);
+            canvas.drawBitmap(icon,centerX - iconWidth,0,mPainterText);
+            canvas.drawText(mTimeNumberText, centerX , (posY - mPainterText.getTextSize()), mPainterText);
         }
     }
 }

@@ -22,7 +22,9 @@ import oscar.com.eater.DaggerModules.BaseActivityModule;
 import oscar.com.eater.DaggerModules.DaggerBaseActivityComponent;
 import oscar.com.eater.Activities.RecipeDetailsActivity;
 import oscar.com.eater.Observables.ObservableImageRequest;
+import oscar.com.eater.Observables.ObservableRecipeDetailsRequest;
 import oscar.com.eater.Observers.ObserverImageDownloader;
+import oscar.com.eater.Observers.ObserverRecipeDetails;
 import oscar.com.eater.Pojo.Recipe;
 import oscar.com.eater.R;
 import oscar.com.eater.Holder.RecipeHolder;
@@ -59,7 +61,6 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeHolder> {
         final Recipe recipe = mRecipes.get(position);
         holder.recipeTitle.setText(recipe.getRecipeName());
         holder.recipeImageView.setImageDrawable(mContext.getDrawable(R.drawable.recipe_image_placeholder));
-        holder.sourceName.setText(recipe.getRecipeDescription());
         Observable.create(new ObservableImageRequest(recipe.getRecipeImage()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,20 +71,13 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeHolder> {
 
             }
         });
+        Observable.create(new ObservableRecipeDetailsRequest(recipe.getId()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ObserverRecipeDetails().withContext(mContext).forHolder(holder));
+
     }
 
-    private Drawable getVegetarianDrawable(boolean isVeg){
-        return isVeg ? mContext.getDrawable(R.drawable.ic_vegetarian_enabled) : mContext.getDrawable(R.drawable.ic_vegetarian_disabled);
-    }
-
-    private Drawable getVeganDrawable(boolean isVegan){
-        return isVegan ? mContext.getDrawable(R.drawable.ic_vegan_enabled) : mContext.getDrawable(R.drawable.ic_vegan_disabled);
-    }
-
-    private Drawable getPriceRangeDrawable(double price){
-        return price<= 300 ?  mContext.getDrawable(R.drawable.ic_cheapest) : price <= 500 ?  mContext.getDrawable(R.drawable.ic_medium_priced) :
-                mContext.getDrawable(R.drawable.ic_expensive);
-    }
 
     @Override
     public int getItemCount() {

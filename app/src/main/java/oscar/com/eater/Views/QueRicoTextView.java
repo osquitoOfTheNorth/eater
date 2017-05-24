@@ -3,9 +3,12 @@ package oscar.com.eater.Views;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import oscar.com.eater.R;
@@ -31,10 +34,14 @@ public class QueRicoTextView extends TextView {
         String fontName = styledAttrs.getString(R.styleable.QueRicoTextView_fontType);
         styledAttrs.recycle();
         if (fontName == null) {
-            Typeface typeface = TypefaceCache.getInstance().getTypeface(context.getAssets(), "Nunito-Medium.ttf");
+            Typeface typeface = TypefaceCache.getInstance().getTypeface(context.getAssets(), "Nunito-Light.ttf");
+            this.setTypeface(typeface, typeface.getStyle());
+        } else {
+            Typeface typeface = TypefaceCache.getInstance().getTypeface(context.getAssets(), fontName);
             this.setTypeface(typeface, typeface.getStyle());
         }
         this.setTextColor(color);
     }
+
 
 }

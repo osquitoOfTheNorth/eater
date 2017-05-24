@@ -10,10 +10,8 @@ import java.io.Serializable
 
 class Recipe : Serializable {
 
-    @SerializedName("id")
+    @SerializedName("recipe_id")
     var id: Int = 0
-    @SerializedName("recipe_description")
-    var recipeDescription: String? = null
     @SerializedName("recipe_image")
     var recipeImage: String? = null
     @SerializedName("recipe_name")
