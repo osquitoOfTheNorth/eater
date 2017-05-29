@@ -16,6 +16,15 @@
     <declare-styleable name="RatingView">
         <attr name="maxRating" format="integer" />
         <attr name="totalRating" format="integer"/>
-        <attr name="fillColor" format="color" />
+        <attr name="fillColor" format="reference" />
+        <attr name="shouldCenter" format="boolean" />
+        <attr name="radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RecipeMetricView">
+        <attr name="textColorMetric" format="reference"/>
+        <attr name="metricSeperatorColor" format="reference"/>
+        <attr name="metricFontSize" format="dimension"/>
+        <attr name="metricUnitFontSize" format="dimension"/>
     </declare-styleable>
 </resources>

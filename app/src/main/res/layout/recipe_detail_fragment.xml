@@ -16,40 +16,63 @@
                     android:layout_height="250dp"
                     android:scaleType="fitXY"/>
             </LinearLayout>
-            <RelativeLayout
-                android:layout_marginTop="110dp"
+            <android.support.v7.widget.CardView
                 android:layout_alignParentStart="false"
-                android:background="@drawable/rectangular_card"
-                android:layout_width="290dp"
-                android:layout_height="200dp"
-                android:layout_centerHorizontal="true">
-                <oscar.com.eater.Views.QueRicoTextView
-                    android:layout_width="wrap_content"
-                    android:textSize="12sp"
-                    android:text="Test"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"/>
-                <oscar.com.eater.Views.QueRicoTextView
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:text="Test Test ;&amp; Test Test"/>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="100dp">
-                    <oscar.com.eater.Views.RatingView
-                        android:id="@+id/rating_view"
-                        custom:fillColor="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="110dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="290dp"
+                    android:layout_height="200dp">
+                    <oscar.com.eater.Views.QueRicoTextView
+                        android:layout_width="wrap_content"
+                        android:textSize="12sp"
+                        android:id="@+id/recipe_description"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/recipe_detail_card_element_spacing"
+                        android:layout_height="wrap_content"/>
+                    <oscar.com.eater.Views.QueRicoTextView
+                        android:layout_marginTop="@dimen/recipe_detail_card_element_spacing"
+                        android:layout_below="@+id/recipe_description"
+                        android:textSize="20sp"
+                        android:id="@+id/recipe_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Test Test ;&amp; Test Test"/>
+                    <LinearLayout
+                        android:id="@+id/rating_view_holder"
+                        android:layout_below="@+id/recipe_title"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/recipe_detail_card_element_spacing"
+                        android:layout_centerHorizontal="true">
+                            <oscar.com.eater.Views.RatingView
+                            android:id="@+id/rating_view"
+                            custom:fillColor="@color/colorPrimary"
+                            custom:shouldCenter="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_below="@+id/rating_view_holder"
+                        android:layout_marginTop="@dimen/recipe_detail_card_element_spacing"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"/>
-                </LinearLayout>
-            </RelativeLayout>
+                        android:layout_height="wrap_content">
+                        <oscar.com.eater.Views.RecipeMetricView
+                            custom:metricFontSize="@dimen/recipe_metrics_font_size"
+                            custom:textColorMetric="@color/black"
+                            custom:metricUnitFontSize="@dimen/recipe_metrics_unit_font_size"
+                            custom:metricSeperatorColor="@color/colorPrimary"
+                            android:id="@+id/recipe_metrics"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
             <ListView
                 android:id="@+id/recipe_steps"
                 android:layout_marginTop="10dp"

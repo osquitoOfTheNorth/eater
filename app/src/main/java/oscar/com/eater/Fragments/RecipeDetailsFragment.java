@@ -29,6 +29,7 @@ import oscar.com.eater.Pojo.RecipeDetails;
 import oscar.com.eater.R;
 import oscar.com.eater.Response.RecipeDetailsResponse;
 import oscar.com.eater.Views.RatingView;
+import oscar.com.eater.Views.RecipeMetricView;
 
 /**
  * Created by omenji on 3/29/17.
@@ -39,6 +40,7 @@ public class RecipeDetailsFragment extends Fragment {
     private ImageView mImageViewBanner;
     private ListView mRecipeInstructions;
     private RatingView mRatingView;
+    private RecipeMetricView metricView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class RecipeDetailsFragment extends Fragment {
         mRatingView = (RatingView) v.findViewById(R.id.rating_view);
         mRatingView.setMaxRating(5);
         mRatingView.setTotalRating(detailRecipe.getDetails().getRating());
+        metricView = (RecipeMetricView) v.findViewById(R.id.recipe_metrics);
+        metricView.setMetrics(detailRecipe.getDetails().getMetrics());
         mRecipeInstructions.setAdapter(new RecipeInstructionsAdapter(getContext(),new ArrayList<Instruction>()));
         loadImageIntoImageView(mUrl,mImageViewBanner);
         return v;

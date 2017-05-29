@@ -79,9 +79,9 @@ public class RecipeInstructionsAdapter implements ListAdapter {
         Instruction analyzedInstruction = mItems.get(i);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.recipe_instructions_view_holder,viewGroup,false);
-        TextView stepNumber = (TextView) v.findViewById(R.id.instruction_image_view);
+//        TextView stepNumber = (TextView) v.findViewById(R.id.instruction_image_view);
         TextView instruction = (TextView) v.findViewById(R.id.instruction_text_view);
-        stepNumber.setText(String.valueOf(analyzedInstruction.getStepNumber()));
+//        stepNumber.setText(String.valueOf(analyzedInstruction.getStepNumber()));
         instruction.setText(analyzedInstruction.getInstructionDetail());
         return v;
     }
