@@ -19,7 +19,8 @@ object ApplicationContants {
     val oauth_version = "oauth_version"
     val format = "format"
     val signatureMethod = "HMAC-SHA1"
-
+    val recipeDetails = "RECIPE_DETAILS"
+    val recipeImageUrl = "RECIPE_IMAGE_URL"
 
 
 

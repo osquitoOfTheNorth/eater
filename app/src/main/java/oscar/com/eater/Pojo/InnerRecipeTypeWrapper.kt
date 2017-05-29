@@ -2,6 +2,7 @@ package oscar.com.eater.Pojo
 
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
+import java.io.Serializable
 import java.lang.reflect.Type
 
 /**
@@ -16,7 +17,7 @@ import java.lang.reflect.Type
       }
 */
 
-class InnerRecipeTypeWrapper {
+class InnerRecipeTypeWrapper : Serializable {
     var recipeTypesInnerList: ArrayList<String> = ArrayList()
 
 

@@ -1,25 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
                       android:orientation="vertical"
                       android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:background="@color/colorAccent">
+                      android:layout_height="match_parent"
+                        android:background="@color/colorAccent">
             <LinearLayout
+                android:id="@+id/image_holder"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/recipe_image_view_holder_detail_page"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
+                    android:layout_height="250dp"
                     android:scaleType="fitXY"/>
             </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="110dp"
+                android:layout_alignParentStart="false"
+                android:background="@drawable/rectangular_card"
+                android:layout_width="290dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true">
+                <oscar.com.eater.Views.QueRicoTextView
+                    android:layout_width="wrap_content"
+                    android:textSize="12sp"
+                    android:text="Test"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"/>
+                <oscar.com.eater.Views.QueRicoTextView
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Test Test ;&amp; Test Test"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="100dp">
+                    <oscar.com.eater.Views.RatingView
+                        android:id="@+id/rating_view"
+                        custom:fillColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"/>
+                </LinearLayout>
+            </RelativeLayout>
             <ListView
                 android:id="@+id/recipe_steps"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+            </ListView>
 
-    </LinearLayout>
+    </RelativeLayout>

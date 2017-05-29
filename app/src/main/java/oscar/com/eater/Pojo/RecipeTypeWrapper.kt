@@ -1,10 +1,11 @@
 package oscar.com.eater.Pojo
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by omenji on 5/24/17.
  */
-class RecipeTypeWrapper() {
+class RecipeTypeWrapper() : Serializable {
 
     @SerializedName("recipe_type")
     var recipeTypesInner : InnerRecipeTypeWrapper? = null

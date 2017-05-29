@@ -65,16 +65,10 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeHolder> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserverImageDownloader(holder.recipeImageView, AnimationUtils.loadAnimation(mActivity.getApplicationContext(),R.anim.fade_in_animation)));
-        holder.recipeImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         Observable.create(new ObservableRecipeDetailsRequest(recipe.getId()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ObserverRecipeDetails().withContext(mContext).forHolder(holder));
+                .subscribe(new ObserverRecipeDetails().withContext(mContext).withActivity(mActivity).withImageUrl(recipe.getRecipeImage()).forHolder(holder));
 
     }
 

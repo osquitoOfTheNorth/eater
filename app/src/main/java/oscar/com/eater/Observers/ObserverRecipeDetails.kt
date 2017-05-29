@@ -1,16 +1,21 @@
 package oscar.com.eater.Observers
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Adapter
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import oscar.com.eater.Activities.RecipeDetailsActivity
+import oscar.com.eater.ApplicationContants
 import oscar.com.eater.Holder.RecipeHolder
 import oscar.com.eater.Interfaces.AbstractObserver
 import oscar.com.eater.Pojo.InnerRecipeTypeWrapper
-import oscar.com.eater.Pojo.RecipeTypeWrapper
 import oscar.com.eater.Response.RecipeDetailsResponse
 
 /**
@@ -20,6 +25,9 @@ class ObserverRecipeDetails : AbstractObserver(), Observer<String> {
 
     private var mContext : Context? = null
     private var mRecipeHolder : RecipeHolder? = null
+    private var mAcitivty : Context? = null
+    private var mURL : String? = null
+
     override fun onSubscribe(d: Disposable?) {
 
     }
@@ -40,6 +48,17 @@ class ObserverRecipeDetails : AbstractObserver(), Observer<String> {
             mRecipeHolder!!.setPrepTimeText(String.format("%s mins", recipeDetailsResponse.details!!.prepTime))
             mRecipeHolder!!.Description.text = recipeDetailsResponse.details!!.recipeDescription
             mRecipeHolder!!.RecipeTypes.text = recipeDetailsResponse.details!!.recipeTypesWrapper!!.toString()
+            mRecipeHolder!!.recipeImageView.setOnClickListener({
+                val intent = Intent(mContext, RecipeDetailsActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(ApplicationContants.recipeDetails, recipeDetailsResponse)
+                if(mURL != null){
+                    bundle.putSerializable(ApplicationContants.recipeImageUrl,mURL)
+                }
+                intent.putExtras(bundle)
+                mAcitivty?.startActivity(intent)
+            })
+
         } catch (e : Exception) {
             e.printStackTrace()
             Log.e("ObserverRecipeDetails",String.format("Error decoding following json: %s",value))
@@ -58,4 +77,16 @@ class ObserverRecipeDetails : AbstractObserver(), Observer<String> {
         mContext = context
         return this
     }
+
+    fun withActivity(activity: Context?) : ObserverRecipeDetails {
+        mAcitivty = activity
+        return this
+    }
+
+    fun withImageUrl(url: String?) : ObserverRecipeDetails {
+        mURL = url
+        return this
+    }
+
+
 }

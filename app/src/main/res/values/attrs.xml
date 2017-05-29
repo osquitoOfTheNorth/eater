@@ -12,4 +12,10 @@
         <attr name="fontType" format="string"/>
         <attr name="textSizea" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="RatingView">
+        <attr name="maxRating" format="integer" />
+        <attr name="totalRating" format="integer"/>
+        <attr name="fillColor" format="color" />
+    </declare-styleable>
 </resources>
