@@ -26,5 +26,6 @@
         <attr name="metricSeperatorColor" format="reference"/>
         <attr name="metricFontSize" format="dimension"/>
         <attr name="metricUnitFontSize" format="dimension"/>
+        <attr name="metricPadding" format="dimension"/>
     </declare-styleable>
 </resources>

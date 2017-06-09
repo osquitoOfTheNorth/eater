@@ -69,6 +69,7 @@
                             custom:metricSeperatorColor="@color/colorPrimary"
                             android:id="@+id/recipe_metrics"
                             android:layout_width="match_parent"
+                            custom:metricPadding="@dimen/recipe_metrics_padding"
                             android:layout_height="50dp" />
                     </LinearLayout>
                 </RelativeLayout>

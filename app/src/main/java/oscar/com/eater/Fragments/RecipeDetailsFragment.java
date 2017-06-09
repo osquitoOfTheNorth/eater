@@ -9,23 +9,15 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import oscar.com.eater.Adapter.RecipeInstructionsAdapter;
 import oscar.com.eater.ApplicationContants;
-import oscar.com.eater.Observables.ObservableAnalyzedInstructionsRequest;
 import oscar.com.eater.Observables.ObservableImageRequest;
-import oscar.com.eater.Observers.ObserverAnalyzedInstructions;
 import oscar.com.eater.Observers.ObserverImageDownloader;
 import oscar.com.eater.Pojo.Instruction;
-import oscar.com.eater.Pojo.Recipe;
-import oscar.com.eater.Pojo.RecipeDetails;
 import oscar.com.eater.R;
 import oscar.com.eater.Response.RecipeDetailsResponse;
 import oscar.com.eater.Views.RatingView;

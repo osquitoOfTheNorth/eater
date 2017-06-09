@@ -16,7 +16,7 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
     internal var mMetricTextPainter = Paint(Paint.ANTI_ALIAS_FLAG)
     internal var mSeperatorTextPainter = Paint(Paint.ANTI_ALIAS_FLAG)
     internal var mMetricTextUnitPainter = Paint(Paint.ANTI_ALIAS_FLAG)
-    internal var padding : Float? = null
+    internal var textPadding : Float = 10.0f
     init{
         val array = context.theme.obtainStyledAttributes(attributes, R.styleable.RecipeMetricView, 0, 0)
         try{
@@ -24,12 +24,13 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
             var textSizeMetric = array.getDimension(R.styleable.RecipeMetricView_metricFontSize,12.0f)
             var textSizeMetricMeasurement = array.getDimension(R.styleable.RecipeMetricView_metricUnitFontSize, 10.0f)
             var separationCharacterColor = context!!.getColor(array.getResourceId(R.styleable.RecipeMetricView_metricSeperatorColor, R.color.black))
+            textPadding = array.getDimension(R.styleable.RecipeMetricView_metricPadding,10.0f)
             mMetricTextUnitPainter.textSize = textSizeMetricMeasurement
             mMetricTextUnitPainter.color = textColor
             mMetricTextPainter.textSize = textSizeMetric
             mMetricTextPainter.color = textColor
             mSeperatorTextPainter.color = separationCharacterColor
-            padding = context?.resources.getDimension(R.dimen.recipe_metrics_padding)
+            mSeperatorTextPainter.textSize = textSizeMetric
         } catch (e : Exception){
 
         }
@@ -51,20 +52,17 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        var xOffset = padding!!
+        var xOffset = 0.0f
         for(recipeMetric in metrics) {
             var yStartUnit = height - mMetricTextPainter.textSize
-            var yStartMetric = height - mMetricTextUnitPainter.textSize
-            var yStartSeperator = height - mSeperatorTextPainter.textSize
-
+            xOffset += textPadding
             canvas?.drawText("%s".format(recipeMetric.UnitNumber),xOffset,yStartUnit,mMetricTextPainter)
 
-            xOffset += mMetricTextPainter.measureText("{recipe.UnitNumber}")
-            canvas?.drawText("%s".format(recipeMetric.UnitOfMeasurement),xOffset,yStartMetric,mMetricTextUnitPainter)
+            xOffset += mMetricTextPainter.measureText(recipeMetric.UnitNumber) + textPadding
+            canvas?.drawText("%s".format(recipeMetric.UnitOfMeasurement),xOffset,yStartUnit,mMetricTextUnitPainter)
 
-
-            xOffset += mMetricTextUnitPainter.measureText("{recipe.UnitOfMeasurement}")
-            canvas?.drawText("%s".format(recipeMetric.UnitSeperator),xOffset,yStartSeperator,mSeperatorTextPainter)
+            xOffset += mMetricTextUnitPainter.measureText(recipeMetric.UnitOfMeasurement) + textPadding
+            canvas?.drawText("%s".format(recipeMetric.UnitSeperator),xOffset,yStartUnit,mSeperatorTextPainter)
         }
     }
 

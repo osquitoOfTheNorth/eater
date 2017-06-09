@@ -1,11 +1,13 @@
 package oscar.com.eater.Pojo
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**
  * Created by omenji on 5/26/17.
  */
 class NutritionalInfo : Serializable{
+    @SerializedName("calories")
     var caloriesPerServing : Int? = null
     var calcium : Float? = null
     var carbohydrates : Float? = null
