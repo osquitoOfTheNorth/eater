@@ -1,4 +1,3 @@
-
 build/android-profile/profile-2017-05-29-11-44-42-969.rawproto
 build/android-profile/profile-2017-05-29-11-44-49-527.rawproto
 build/android-profile/profile-2017-05-29-11-46-59-634.rawproto
@@ -90,3 +89,12 @@ gradle.properties
 gradle/wrapper/gradle-wrapper.properties
 gradle/wrapper/gradle-wrapper.properties
 gradle/wrapper/gradle-wrapper.properties
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
