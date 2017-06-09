@@ -8,7 +8,7 @@
     <dimen name="default_rating_radius">20dp</dimen>
     <dimen name="recipe_detail_card_element_spacing">15dp</dimen>
     <dimen name="recipe_metrics_padding">10dp</dimen>
-    <dimen name="recipe_metrics_font_size">18sp</dimen>
+    <dimen name="recipe_metrics_font_size">20sp</dimen>
     <dimen name="recipe_metrics_unit_font_size">12sp</dimen>
 
 </resources>

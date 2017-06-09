@@ -20,10 +20,10 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
     init{
         val array = context.theme.obtainStyledAttributes(attributes, R.styleable.RecipeMetricView, 0, 0)
         try{
-            var textColor = array.getColorStateList(R.styleable.RecipeMetricView_textColorMetric).defaultColor
+            var textColor = context!!.getColor(array.getResourceId(R.styleable.RecipeMetricView_textColorMetric,R.color.black))
             var textSizeMetric = array.getDimension(R.styleable.RecipeMetricView_metricFontSize,12.0f)
             var textSizeMetricMeasurement = array.getDimension(R.styleable.RecipeMetricView_metricUnitFontSize, 10.0f)
-            var separationCharacterColor = array.getColorStateList(R.styleable.RecipeMetricView_metricSeperatorColor).defaultColor
+            var separationCharacterColor = context!!.getColor(array.getResourceId(R.styleable.RecipeMetricView_metricSeperatorColor, R.color.black))
             mMetricTextUnitPainter.textSize = textSizeMetricMeasurement
             mMetricTextUnitPainter.color = textColor
             mMetricTextPainter.textSize = textSizeMetric
@@ -51,13 +51,20 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        var xOffset = padding!!
         for(recipeMetric in metrics) {
-            var xOffset = padding!!
-            canvas?.drawText("%s".format(recipeMetric.UnitNumber),xOffset,0.0f,mMetricTextPainter)
-            xOffset += mMetricTextPainter.textSize * recipeMetric.UnitNumber?.length!! + mMetricTextPainter.fontSpacing
-            canvas?.drawText("%s".format(recipeMetric.UnitOfMeasurement),xOffset!!,0.0f,mMetricTextUnitPainter)
-            xOffset += mMetricTextUnitPainter.textSize * recipeMetric.UnitOfMeasurement?.length!! + mMetricTextUnitPainter.fontSpacing
-            canvas?.drawText("%s".format(recipeMetric.UnitSeperator),xOffset!!,0.0f,mSeperatorTextPainter)
+            var yStartUnit = height - mMetricTextPainter.textSize
+            var yStartMetric = height - mMetricTextUnitPainter.textSize
+            var yStartSeperator = height - mSeperatorTextPainter.textSize
+
+            canvas?.drawText("%s".format(recipeMetric.UnitNumber),xOffset,yStartUnit,mMetricTextPainter)
+
+            xOffset += mMetricTextPainter.measureText("{recipe.UnitNumber}")
+            canvas?.drawText("%s".format(recipeMetric.UnitOfMeasurement),xOffset,yStartMetric,mMetricTextUnitPainter)
+
+
+            xOffset += mMetricTextUnitPainter.measureText("{recipe.UnitOfMeasurement}")
+            canvas?.drawText("%s".format(recipeMetric.UnitSeperator),xOffset,yStartSeperator,mSeperatorTextPainter)
         }
     }
 

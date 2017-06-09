@@ -7,8 +7,9 @@ import java.io.Serializable
 /**
  * Created by omenji on 5/24/17.
  */
-class RecipeDetailsResponse : Serializable{
+class RecipeDetailsResponse : Serializable {
     @SerializedName("recipe")
-    var details : RecipeDetails? = null
+    var details: RecipeDetails? = null
 
 }
+
