@@ -5,17 +5,11 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-import oscar.com.eater.Observables.ObservableImageRequest;
-import oscar.com.eater.Observers.ObserverImageDownloader;
-import oscar.com.eater.Pojo.Ingredient;
 import oscar.com.eater.Pojo.Instruction;
 import oscar.com.eater.R;
 

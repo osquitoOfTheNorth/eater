@@ -29,6 +29,9 @@ class RecipeDetails :Serializable {
     @SerializedName("serving_sizes")
     var nutritionalInformation : NutritionalInfoWrapper = NutritionalInfoWrapper()
 
+    @SerializedName("ingredients")
+    var ingredientsWrapper : IngredientWrapper = IngredientWrapper()
+
     fun getMetrics() : ArrayList<RecipeMetric> {
         var returnVal : ArrayList<RecipeMetric> = ArrayList()
         var metric1 : RecipeMetric = RecipeMetric()
@@ -38,8 +41,11 @@ class RecipeDetails :Serializable {
         metric1.UnitOfMeasurement = "Minutes"
         metric2.UnitNumber = nutritionalInformation.nutritionalInfoInner.caloriesPerServing.toString()
         metric2.UnitOfMeasurement = "Calories"
+        metric3.UnitNumber = ingredientsWrapper.ingredients.size.toString()
+        metric3.UnitOfMeasurement = "Ingredients"
         returnVal.add(metric1)
         returnVal.add(metric2)
+        returnVal.add(metric3)
         return returnVal
     }
 
