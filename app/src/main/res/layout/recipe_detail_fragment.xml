@@ -39,8 +39,7 @@
                         android:id="@+id/recipe_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Test Test ;&amp; Test Test"/>
+                        android:layout_centerHorizontal="true"/>
                     <LinearLayout
                         android:id="@+id/rating_view_holder"
                         android:layout_below="@+id/recipe_title"

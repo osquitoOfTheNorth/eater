@@ -10,5 +10,5 @@
     <dimen name="recipe_metrics_padding">10dp</dimen>
     <dimen name="recipe_metrics_font_size">20sp</dimen>
     <dimen name="recipe_metrics_unit_font_size">12sp</dimen>
-
+    <dimen name="recipe_metrics_word_padding">3dp</dimen>
 </resources>

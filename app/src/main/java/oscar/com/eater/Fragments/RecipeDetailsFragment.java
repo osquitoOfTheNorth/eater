@@ -20,6 +20,7 @@ import oscar.com.eater.Observers.ObserverImageDownloader;
 import oscar.com.eater.Pojo.Instruction;
 import oscar.com.eater.R;
 import oscar.com.eater.Response.RecipeDetailsResponse;
+import oscar.com.eater.Views.QueRicoTextView;
 import oscar.com.eater.Views.RatingView;
 import oscar.com.eater.Views.RecipeMetricView;
 
@@ -33,6 +34,7 @@ public class RecipeDetailsFragment extends Fragment {
     private ListView mRecipeInstructions;
     private RatingView mRatingView;
     private RecipeMetricView metricView;
+    private QueRicoTextView mRecipeTitle;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class RecipeDetailsFragment extends Fragment {
         mRatingView.setTotalRating(detailRecipe.getDetails().getRating());
         metricView = (RecipeMetricView) v.findViewById(R.id.recipe_metrics);
         metricView.setMetrics(detailRecipe.getDetails().getMetrics());
+        mRecipeTitle = (QueRicoTextView) v.findViewById(R.id.recipe_title);
+        mRecipeTitle.setText(detailRecipe.getDetails().getFoodName());
         mRecipeInstructions.setAdapter(new RecipeInstructionsAdapter(getContext(),new ArrayList<Instruction>()));
         loadImageIntoImageView(mUrl,mImageViewBanner);
         return v;
