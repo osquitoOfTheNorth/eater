@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import oscar.com.eater.Pojo.Direction;
 import oscar.com.eater.Pojo.Instruction;
 import oscar.com.eater.R;
 
@@ -20,10 +21,13 @@ import oscar.com.eater.R;
 public class RecipeInstructionsAdapter implements ListAdapter {
 
 
-    private List<Instruction> mItems;
+    private List<Direction> mItems;
+    private final int HEADER_VIEW_TYPE = 0;
+    private final int NORMAL_VIEW_TYPE = 1;
+    private final int VIEW_TYPE_COUNT = 2;
     private Context mContext;
 
-    public RecipeInstructionsAdapter(Context context, List<Instruction> instructions) {
+    public RecipeInstructionsAdapter(Context context, List<Direction> instructions) {
         mItems = instructions;
         mContext = context;
     }
@@ -60,7 +64,7 @@ public class RecipeInstructionsAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int i) {
-        return mItems.get(i).getStepNumber();
+        return mItems.get(i).getInstructionStepNumber();
     }
 
     @Override
@@ -70,29 +74,57 @@ public class RecipeInstructionsAdapter implements ListAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Instruction analyzedInstruction = mItems.get(i);
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View v = inflater.inflate(R.layout.recipe_instructions_view_holder,viewGroup,false);
-//        TextView stepNumber = (TextView) v.findViewById(R.id.instruction_image_view);
-        TextView instruction = (TextView) v.findViewById(R.id.instruction_text_view);
-//        stepNumber.setText(String.valueOf(analyzedInstruction.getStepNumber()));
-        instruction.setText(analyzedInstruction.getInstructionDetail());
-        return v;
+        Direction analyzedInstruction = mItems.get(i);
+        if(view == null) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            switch (getItemViewType(i)){
+                case HEADER_VIEW_TYPE:
+                    view = inflater.inflate(R.layout.recipe_instructions_view_holder_header, viewGroup, false);
+                    break;
+                default:
+                    view = inflater.inflate(R.layout.recipe_instructions_view_holder, viewGroup, false);
+                    break;
+            }
+        }
+        switch (getItemViewType(i)){
+            case HEADER_VIEW_TYPE:
+                setHeaderView(view, analyzedInstruction);
+                break;
+            default:
+                setNormalView(view, analyzedInstruction);
+                break;
+
+        }
+        return view;
     }
 
     @Override
     public int getItemViewType(int i) {
-        return 0;
+        return i == 0 ? HEADER_VIEW_TYPE : NORMAL_VIEW_TYPE;
     }
 
     @Override
     public int getViewTypeCount() {
-        return 1;
+        return VIEW_TYPE_COUNT;
     }
 
     @Override
     public boolean isEmpty() {
         return mItems.size() == 0;
+    }
+
+
+    private void setHeaderView(View view, Direction analyzedInstruction){
+        TextView header = (TextView) view.findViewById(R.id.header_view);
+        header.setText("DIRECTIONS");
+    }
+
+
+    private void setNormalView(View view, Direction analyzedInstruction){
+        TextView instruction = (TextView) view.findViewById(R.id.instruction_text_view);
+        TextView stepNumber = (TextView) view.findViewById(R.id.instruction_step_number);
+        instruction.setText(analyzedInstruction.getInstruction());
+        stepNumber.setText(analyzedInstruction.getInstructionStepNumber());
     }
 }
 

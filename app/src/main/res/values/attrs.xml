@@ -27,5 +27,6 @@
         <attr name="metricFontSize" format="dimension"/>
         <attr name="metricUnitFontSize" format="dimension"/>
         <attr name="metricPadding" format="dimension"/>
+        <attr name="textFontName" format="string"/>
     </declare-styleable>
 </resources>

@@ -23,6 +23,7 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
     internal var mMetricTextUnitPainter = Paint(Paint.ANTI_ALIAS_FLAG)
     internal var textPadding : Float = 0.0f
     internal var wordPadding : Float = 0.0f
+    internal val mFontName : String = "Nunito-Light.ttf"
     init{
         val array = context.theme.obtainStyledAttributes(attributes, R.styleable.RecipeMetricView, 0, 0)
         try{
@@ -30,7 +31,8 @@ class RecipeMetricView(context :Context, attributes: AttributeSet) : View(contex
             val textSizeMetric = array.getDimension(R.styleable.RecipeMetricView_metricFontSize,12.0f)
             val textSizeMetricMeasurement = array.getDimension(R.styleable.RecipeMetricView_metricUnitFontSize, 10.0f)
             val separationCharacterColor = context.getColor(array.getResourceId(R.styleable.RecipeMetricView_metricSeperatorColor, R.color.black))
-            var fontForMetric = TypefaceCache.getInstance().getTypeface(context.assets,"Nunito-Light.ttf")
+            val fontNameString = array.getString(R.styleable.RecipeMetricView_textFontName)
+            var fontForMetric = TypefaceCache.getInstance().getTypeface(context.assets, fontNameString ?: mFontName )
             textPadding = array.getDimension(R.styleable.RecipeMetricView_metricPadding,10.0f)
             wordPadding = context.resources.getDimension(R.dimen.recipe_metrics_word_padding)
             mMetricTextUnitPainter.textSize = textSizeMetricMeasurement

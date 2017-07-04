@@ -32,6 +32,10 @@ class RecipeDetails :Serializable {
     @SerializedName("ingredients")
     var ingredientsWrapper : IngredientWrapper = IngredientWrapper()
 
+
+    @SerializedName("directions")
+    var recipeDirections : DirectionsWrapper = DirectionsWrapper()
+
     fun getMetrics() : ArrayList<RecipeMetric> {
         var returnVal : ArrayList<RecipeMetric> = ArrayList()
         var metric1 : RecipeMetric = RecipeMetric()

@@ -35,6 +35,7 @@ public class RecipeDetailsFragment extends Fragment {
     private RatingView mRatingView;
     private RecipeMetricView metricView;
     private QueRicoTextView mRecipeTitle;
+    private QueRicoTextView mRecipeTypesTextbox;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class RecipeDetailsFragment extends Fragment {
         String mUrl = (String) bundle.getSerializable(ApplicationContants.INSTANCE.getRecipeImageUrl());
         mImageViewBanner = (ImageView) v.findViewById(R.id.recipe_image_view_holder_detail_page);
         mRecipeInstructions = (ListView) v.findViewById(R.id.recipe_steps);
+
         mRatingView = (RatingView) v.findViewById(R.id.rating_view);
         mRatingView.setMaxRating(5);
         mRatingView.setTotalRating(detailRecipe.getDetails().getRating());
@@ -52,8 +54,10 @@ public class RecipeDetailsFragment extends Fragment {
         metricView.setMetrics(detailRecipe.getDetails().getMetrics());
         mRecipeTitle = (QueRicoTextView) v.findViewById(R.id.recipe_title);
         mRecipeTitle.setText(detailRecipe.getDetails().getFoodName());
-        mRecipeInstructions.setAdapter(new RecipeInstructionsAdapter(getContext(),new ArrayList<Instruction>()));
+        mRecipeInstructions.setAdapter(new RecipeInstructionsAdapter(getContext(),detailRecipe.getDetails().getRecipeDirections().getStepByStepDirections()));
         loadImageIntoImageView(mUrl,mImageViewBanner);
+        mRecipeTypesTextbox = (QueRicoTextView) v.findViewById(R.id.recipe_description);
+        mRecipeTypesTextbox.setText(detailRecipe.getDetails().getRecipeDescription());
         return v;
 
 
