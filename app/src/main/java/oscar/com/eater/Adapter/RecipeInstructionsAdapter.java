@@ -54,17 +54,17 @@ public class RecipeInstructionsAdapter implements ListAdapter {
 
     @Override
     public int getCount() {
-        return mItems.size();
+        return mItems.size() + 1;
     }
 
     @Override
     public Object getItem(int i) {
-        return mItems.get(i);
+        return getItemOffsetByHeaderView(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return mItems.get(i).getInstructionStepNumber();
+        return getItemOffsetByHeaderView(i).getInstructionStepNumber();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class RecipeInstructionsAdapter implements ListAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Direction analyzedInstruction = mItems.get(i);
+        Direction analyzedInstruction = getItemOffsetByHeaderView(i);
         if(view == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             switch (getItemViewType(i)){
@@ -124,7 +124,17 @@ public class RecipeInstructionsAdapter implements ListAdapter {
         TextView instruction = (TextView) view.findViewById(R.id.instruction_text_view);
         TextView stepNumber = (TextView) view.findViewById(R.id.instruction_step_number);
         instruction.setText(analyzedInstruction.getInstruction());
-        stepNumber.setText(analyzedInstruction.getInstructionStepNumber());
+        stepNumber.setText(String.valueOf(analyzedInstruction.getInstructionStepNumber()));
     }
+
+    private Direction getItemOffsetByHeaderView(int i){
+        switch(i){
+            case 0:
+                return new Direction();
+            default:
+                return mItems.get(i-1);
+        }
+    }
+
 }
 

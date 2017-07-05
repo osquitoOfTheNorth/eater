@@ -1,6 +1,8 @@
 package oscar.com.eater.Response
 
 import com.google.gson.annotations.SerializedName
+import oscar.com.eater.Pojo.Direction
+import oscar.com.eater.Pojo.Directions
 import oscar.com.eater.Pojo.RecipeDetails
 import java.io.Serializable
 
@@ -11,5 +13,9 @@ class RecipeDetailsResponse : Serializable {
     @SerializedName("recipe")
     var details: RecipeDetails? = null
 
+
+    fun getRecipeInstructions() : ArrayList<Direction>?{
+        return details?.recipeDirections?.stepByStepDirections?.directions
+    }
 }
 

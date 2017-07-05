@@ -98,3 +98,8 @@ gradle/wrapper/gradle-wrapper.properties
 /build
 /captures
 .externalNativeBuild
+.idea/misc.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/modules.xml
+.idea/misc.xml

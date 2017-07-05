@@ -15,6 +15,9 @@ import oscar.com.eater.Activities.RecipeDetailsActivity
 import oscar.com.eater.ApplicationContants
 import oscar.com.eater.Holder.RecipeHolder
 import oscar.com.eater.Interfaces.AbstractObserver
+import oscar.com.eater.Pojo.Directions
+import oscar.com.eater.Pojo.DirectionsWrapper
+import oscar.com.eater.Pojo.IngredientWrapper
 import oscar.com.eater.Pojo.InnerRecipeTypeWrapper
 import oscar.com.eater.Response.RecipeDetailsResponse
 
@@ -40,7 +43,8 @@ class ObserverRecipeDetails : AbstractObserver(), Observer<String> {
     override fun onNext(value: String?) {
         try {
             var gsonBuilder = GsonBuilder()
-            gsonBuilder.registerTypeAdapter(InnerRecipeTypeWrapper::class.java, InnerRecipeTypeWrapper.RecipeTypeWrapperDeserializer)
+            gsonBuilder.registerTypeAdapter(InnerRecipeTypeWrapper::class.java, InnerRecipeTypeWrapper())
+            gsonBuilder.registerTypeAdapter(Directions::class.java, Directions())
             var jsonResponse = gsonBuilder.create()
             jsonResponse
             var returnClassType = RecipeDetailsResponse().javaClass

@@ -54,7 +54,7 @@ public class RecipeDetailsFragment extends Fragment {
         metricView.setMetrics(detailRecipe.getDetails().getMetrics());
         mRecipeTitle = (QueRicoTextView) v.findViewById(R.id.recipe_title);
         mRecipeTitle.setText(detailRecipe.getDetails().getFoodName());
-        mRecipeInstructions.setAdapter(new RecipeInstructionsAdapter(getContext(),detailRecipe.getDetails().getRecipeDirections().getStepByStepDirections()));
+        mRecipeInstructions.setAdapter(new RecipeInstructionsAdapter(getContext(),detailRecipe.getRecipeInstructions()));
         loadImageIntoImageView(mUrl,mImageViewBanner);
         mRecipeTypesTextbox = (QueRicoTextView) v.findViewById(R.id.recipe_description);
         mRecipeTypesTextbox.setText(detailRecipe.getDetails().getRecipeDescription());
