@@ -1,11 +1,13 @@
 package oscar.com.eater;
 
 import android.Manifest;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.ActivityCompat;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
     private final int InternetPermissionRequestCode = 111;
-    private Bundle mBundle;
     @LayoutRes
     protected int getLayoutResId() {
         return R.layout.activity_base;
@@ -31,7 +32,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.INTERNET},
                     InternetPermissionRequestCode);
         }
-        mBundle = getIntent().getExtras();
         addFragment();
 
     }
@@ -47,12 +47,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void addFragmentToStack(Fragment fragment, int in, int out){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(in, out)
+                   .addToBackStack("TAG")
+                   .replace(R.id.activity_base,fragment)
+                   .commit();
+    }
+
     private void addFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.activity_base);
         if (fragment == null) {
             fragment = createFragment();
-            fragment.setArguments(mBundle);
             fragmentManager.beginTransaction()
                            .add(R.id.activity_base, fragment)
                            .commit();

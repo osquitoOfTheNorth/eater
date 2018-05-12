@@ -15,8 +15,6 @@ class RecipeDetails :Serializable {
     @SerializedName("preparation_time_min")
     var prepTime : Int? = null
 
-    @SerializedName("recipe_types")
-    var recipeTypesWrapper : RecipeTypeWrapper? = null
 
     @SerializedName("recipe_description")
     var recipeDescription: String? = null

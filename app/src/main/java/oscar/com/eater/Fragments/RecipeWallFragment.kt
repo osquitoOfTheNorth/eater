@@ -1,0 +1,78 @@
+package oscar.com.eater.Fragments
+
+import android.arch.lifecycle.Observer
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.arch.lifecycle.ViewModelProviders
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import kotlinx.android.synthetic.main.recipe_wall_fragment.*
+import oscar.com.eater.Adapter.RecipeViewAdapter
+import oscar.com.eater.ApplicationContants
+import oscar.com.eater.R
+import oscar.com.eater.ViewModels.RecipeWallViewModel
+
+/**
+ * Created by omenji on 3/16/17.
+ */
+
+class RecipeWallFragment : Fragment() {
+    private var loadingiconID: Int = 0
+    private var searchQuery: String = ""
+    private var recipeWallViewModel : RecipeWallViewModel? = null
+
+    private val loadingIconDrawable: Drawable?
+        get() {
+            loadingiconID++
+            return if (loadingiconID % 2 == 0) activity?.getDrawable(R.drawable.loading_image1) else activity?.getDrawable(R.drawable.loading_image2)
+        }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val v = inflater.inflate(R.layout.recipe_wall_fragment, container, false)
+        return v
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fragment_recipe_recycler_view_holder.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        fragment_recipe_recycler_view_holder.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!fragment_recipe_recycler_view_holder.canScrollHorizontally(1)) {
+                    getRecipesForSearchQuery(true)
+                }
+            }
+        })
+        recipeWallViewModel = ViewModelProviders.of(this).get(RecipeWallViewModel::class.java)
+        val adapter = RecipeViewAdapter(ArrayList(),activity)
+        fragment_recipe_recycler_view_holder.adapter = adapter
+        extractSearchQuery()
+        getRecipesForSearchQuery(false)
+    }
+
+    private fun getRecipesForSearchQuery(getMore : Boolean) {
+        loading_icon.visibility = View.VISIBLE
+        loading_icon.setImageDrawable(loadingIconDrawable)
+        loading_icon.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_animation))
+        fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_out_animation))
+        recipeWallViewModel?.getRecipesForQueryString(searchQuery,getMore)?.observe(this, Observer { list ->
+            list?.let {
+                loading_icon.animation = null
+                loading_icon.visibility = View.GONE
+                fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity,R.anim.fade_in_animation))
+                (fragment_recipe_recycler_view_holder.adapter as RecipeViewAdapter).addToScrollable(list)
+            }
+        })
+    }
+
+
+    private fun extractSearchQuery() {
+        searchQuery = arguments?.getString(ApplicationContants.searchQueryStringKey)!!
+    }
+
+}
