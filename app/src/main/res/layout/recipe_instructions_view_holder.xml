@@ -1,24 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="ingredient"
+            type="oscar.com.eater.Pojo.Ingredient"/>
+    </data>
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="15dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp">
-    <oscar.com.eater.Views.QueRicoTextView
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:textSize="12sp"
-        custom:fontType="Nunito-Light.ttf"
-        android:id="@+id/instruction_step_number"/>
-    <oscar.com.eater.Views.QueRicoTextView
-        android:textSize="12sp"
-        android:layout_weight="4"
-        custom:fontType="Nunito-Light.ttf"
-        android:id="@+id/instruction_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        <oscar.com.eater.Views.QueRicoTextView
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:text="@{ingredient.stepNumber}"
+            custom:fontType="Nunito-Light.ttf"
+            android:id="@+id/instruction_step_number"/>
+        <oscar.com.eater.Views.QueRicoTextView
+            android:textSize="12sp"
+            android:layout_weight="4"
+            custom:fontType="Nunito-Light.ttf"
+            android:id="@+id/instruction_text_view1"
+            android:text="@{String.valueOf(ingredient.quantity)}"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <oscar.com.eater.Views.QueRicoTextView
+            android:textSize="12sp"
+            android:layout_weight="4"
+            custom:fontType="Nunito-Light.ttf"
+            android:id="@+id/instruction_text_view2"
+            android:text="@{ingredient.measure.label}"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <oscar.com.eater.Views.QueRicoTextView
+            android:textSize="12sp"
+            android:layout_weight="4"
+            custom:fontType="Nunito-Light.ttf"
+            android:id="@+id/instruction_text_view3"
+            android:text="@{ingredient.food.label}"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</layout>

@@ -63,7 +63,10 @@ public class RecipeDetailsFragment extends Fragment {
         metricView = v.findViewById(R.id.recipe_metrics);
         mRecipeTitle =  v.findViewById(R.id.recipe_title);
         mRecipeTitle.setText(detailRecipe.getRecipe().getRecipeName());
-        mRecipeInstructions.setAdapter(new RecipeIngredientsAdapter(detailRecipe.getRecipe().getIngredients()));
+        RecipeIngredientsAdapter adapter = new RecipeIngredientsAdapter(detailRecipe.getRecipe().getIngredients());
+        adapter.notifyDataSetChanged();
+        mRecipeInstructions.setAdapter(adapter);
+
         loadImageIntoImageView(detailRecipe.getRecipe().getRecipeImage(),mImageViewBanner);
         mRecipeTypesTextbox =  v.findViewById(R.id.recipe_description);
         mRecipeTypesTextbox.setText(detailRecipe.getRecipe().getSource());

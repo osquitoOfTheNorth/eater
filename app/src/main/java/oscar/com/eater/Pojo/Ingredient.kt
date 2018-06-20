@@ -13,4 +13,6 @@ class Ingredient :Serializable {
     var measure : LabelHolder = LabelHolder()
     @SerializedName("food")
     var food : LabelHolder = LabelHolder()
+
+    var stepNumber : Int = 1
 }
