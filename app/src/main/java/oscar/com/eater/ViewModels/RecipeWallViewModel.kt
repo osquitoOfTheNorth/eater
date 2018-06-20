@@ -20,8 +20,12 @@ class RecipeWallViewModel : ViewModel(), Observer<RecipeResponse> {
 
     private var recipes : MutableLiveData<List<RecipeWrapper>> = MutableLiveData()
     private var from : Int = 0
-    private var to : Int = 10
+    private var to : Int = 20
+    private var errorData: MutableLiveData<String> = MutableLiveData()
+    private var noResultsReturned: MutableLiveData<String> = MutableLiveData()
+    private var query = ""
     fun getRecipesForQueryString(string : String, getMore : Boolean) : LiveData<List<RecipeWrapper>>{
+        query = string
         if(getMore){
             recipes = MutableLiveData()
         }
@@ -44,15 +48,27 @@ class RecipeWallViewModel : ViewModel(), Observer<RecipeResponse> {
 
     override fun onNext(value: RecipeResponse?) {
         value?.let{
-            from = value.to
-            to = value.to + 10
-            recipes.postValue(value.recipes)
+            if(value.totalResults <= 0){
+                noResultsReturned.postValue(String.format("Sorry, no results returned for the query: %s", query))
+            } else {
+                from = value.to
+                to = value.to + 20
+                recipes.postValue(value.recipes)
+            }
         }
 
     }
 
     override fun onError(e: Throwable?) {
         e?.printStackTrace()
-        recipes.postValue(ArrayList())
+        errorData.postValue("Sorry, something went wrong trying to retrieve your recipes")
+    }
+
+    fun observeErrors() : MutableLiveData<String> {
+        return errorData
+    }
+
+    fun observeNoResultsReturned() :MutableLiveData<String> {
+        return noResultsReturned
     }
 }

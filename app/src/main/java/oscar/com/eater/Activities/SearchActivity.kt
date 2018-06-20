@@ -25,6 +25,6 @@ class SearchActivity : BaseActivity(), SearchListener {
         searchBundle.putString(searchQueryStringKey,searchString)
         val fragment = RecipeWallFragment()
         fragment.arguments = searchBundle
-        addFragmentToStack(fragment, R.anim.fade_in_animation, R.anim.fade_out_animation)
+        addFragmentToStack(fragment, R.anim.fade_in_animation, 0)
     }
 }

@@ -1,10 +1,13 @@
 package oscar.com.eater.Fragments
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProviders
+import android.support.v4.app.DialogFragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -25,7 +28,7 @@ class RecipeWallFragment : Fragment() {
     private var loadingiconID: Int = 0
     private var searchQuery: String = ""
     private var recipeWallViewModel : RecipeWallViewModel? = null
-
+    private var loadingMore  = false
     private val loadingIconDrawable: Drawable?
         get() {
             loadingiconID++
@@ -43,36 +46,68 @@ class RecipeWallFragment : Fragment() {
         fragment_recipe_recycler_view_holder.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!fragment_recipe_recycler_view_holder.canScrollHorizontally(1)) {
+                val linearLayoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                //Prefetch new entries when we are 5 away from the end of the list
+                if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.itemCount - 5 && !loadingMore) {
+                    loadingMore = true
                     getRecipesForSearchQuery(true)
                 }
             }
         })
         recipeWallViewModel = ViewModelProviders.of(this).get(RecipeWallViewModel::class.java)
-        val adapter = RecipeViewAdapter(ArrayList(),activity)
+        val adapter = RecipeViewAdapter(ArrayList())
         fragment_recipe_recycler_view_holder.adapter = adapter
+
+        recipeWallViewModel?.observeErrors()?.observe(this, Observer { errorMessage ->
+            val modal = AlertDialog.Builder(context)
+            modal.setMessage(errorMessage)
+            modal.setTitle("Error")
+            modal.show()
+            hideLoadingAnimation()
+        })
+
+        recipeWallViewModel?.observeNoResultsReturned()?.observe(this, Observer { message ->
+            val modal = AlertDialog.Builder(context)
+            modal.setMessage(message)
+            modal.setTitle("Error")
+            modal.show()
+            hideLoadingAnimation()
+        })
+
         extractSearchQuery()
+        showLoadingAnimation()
         getRecipesForSearchQuery(false)
     }
 
     private fun getRecipesForSearchQuery(getMore : Boolean) {
-        loading_icon.visibility = View.VISIBLE
-        loading_icon.setImageDrawable(loadingIconDrawable)
-        loading_icon.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_animation))
-        fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_out_animation))
         recipeWallViewModel?.getRecipesForQueryString(searchQuery,getMore)?.observe(this, Observer { list ->
             list?.let {
-                loading_icon.animation = null
-                loading_icon.visibility = View.GONE
-                fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity,R.anim.fade_in_animation))
+                if(!getMore){
+                    loading_icon.animation = null
+                    loading_icon.visibility = View.GONE
+                    fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity,R.anim.fade_in_animation))
+                } else {
+                    loadingMore = false
+                }
                 (fragment_recipe_recycler_view_holder.adapter as RecipeViewAdapter).addToScrollable(list)
             }
         })
     }
 
-
     private fun extractSearchQuery() {
         searchQuery = arguments?.getString(ApplicationContants.searchQueryStringKey)!!
+    }
+
+    private fun showLoadingAnimation(){
+        loading_icon.visibility = View.VISIBLE
+        loading_icon.setImageDrawable(loadingIconDrawable)
+        loading_icon.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_animation))
+        fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_out_animation))
+    }
+
+    private fun hideLoadingAnimation(){
+        loading_icon.visibility = View.GONE
+        loading_icon.clearAnimation()
     }
 
 }

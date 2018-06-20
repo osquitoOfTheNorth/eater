@@ -2,6 +2,8 @@ package oscar.com.eater.Adapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import oscar.com.eater.Holder.IngredientViewHolder;
 import oscar.com.eater.Pojo.Direction;
+import oscar.com.eater.Pojo.Ingredient;
 import oscar.com.eater.Pojo.Instruction;
 import oscar.com.eater.R;
 
@@ -18,63 +22,24 @@ import oscar.com.eater.R;
  * Created by omenji on 4/2/17.
  */
 
-public class RecipeInstructionsAdapter implements ListAdapter {
+public class RecipeIngredientsAdapter extends RecyclerView.Adapter<IngredientViewHolder> {
 
 
-    private List<Direction> mItems;
+    private Ingredient[] mItems;
     private final int HEADER_VIEW_TYPE = 0;
     private final int NORMAL_VIEW_TYPE = 1;
-    private final int VIEW_TYPE_COUNT = 2;
-    private Context mContext;
-
-    public RecipeInstructionsAdapter(Context context, List<Direction> instructions) {
+    public RecipeIngredientsAdapter(Ingredient[] instructions) {
         mItems = instructions;
-        mContext = context;
     }
 
-    @Override
-    public boolean areAllItemsEnabled() {
-        return true;
-    }
 
-    @Override
-    public boolean isEnabled(int i) {
-        return true;
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
-    }
-
-    @Override
-    public int getCount() {
-        return mItems.size() + 1;
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return getItemOffsetByHeaderView(i);
-    }
 
     @Override
     public long getItemId(int i) {
-        return getItemOffsetByHeaderView(i).getInstructionStepNumber();
+        return getItemOffsetByHeaderView(i).hashCode();
     }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Direction analyzedInstruction = getItemOffsetByHeaderView(i);
+    /*
+        Ingredient analyzedInstruction = getItemOffsetByHeaderView(i);
         if(view == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             switch (getItemViewType(i)){
@@ -96,22 +61,13 @@ public class RecipeInstructionsAdapter implements ListAdapter {
 
         }
         return view;
-    }
+    } */
 
     @Override
     public int getItemViewType(int i) {
         return i == 0 ? HEADER_VIEW_TYPE : NORMAL_VIEW_TYPE;
     }
 
-    @Override
-    public int getViewTypeCount() {
-        return VIEW_TYPE_COUNT;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return mItems.size() == 0;
-    }
 
 
     private void setHeaderView(View view, Direction analyzedInstruction){
@@ -127,14 +83,33 @@ public class RecipeInstructionsAdapter implements ListAdapter {
         stepNumber.setText(String.valueOf(analyzedInstruction.getInstructionStepNumber()));
     }
 
-    private Direction getItemOffsetByHeaderView(int i){
+    private Ingredient getItemOffsetByHeaderView(int i){
         switch(i){
             case 0:
-                return new Direction();
+                return new Ingredient();
             default:
-                return mItems.get(i-1);
+                return mItems[i-1];
         }
     }
+
+
+    @NonNull
+    @Override
+    public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
+        Ingredient ingredient = getItemOffsetByHeaderView(position);
+        holder.bindView(ingredient);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mItems.length + 1;
+    }
+
 
 }
 

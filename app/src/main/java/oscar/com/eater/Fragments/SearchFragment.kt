@@ -28,12 +28,12 @@ class SearchFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val v = inflater?.inflate(R.layout.recipe_search_view,container,false)
+        val v = inflater.inflate(R.layout.recipe_search_view,container,false)
         val searchView = v?.findViewById<SearchView>(R.id.recipe_search_view_container)
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 p0?.let { searchString ->
-
+                    searchView.clearFocus()
                     searchListener?.OnSearchQuerySubmitted(searchString)
                     return true
                 }

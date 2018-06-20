@@ -47,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void addFragmentToStack(Fragment fragment, int in, int out){
+    public void addFragmentToStack(Fragment fragment, int in, int out){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(in, out)
@@ -56,6 +56,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                    .commit();
     }
 
+
+    public void addFragmentToStack(Fragment fragment){
+        addFragmentToStack(fragment, R.anim.fade_in_animation, 0);
+    }
     private void addFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.activity_base);

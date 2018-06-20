@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -18,7 +19,7 @@ import oscar.com.eater.Utils.TypefaceCache;
  * Created by omenji on 5/12/17.
  */
 
-public class QueRicoTextView extends TextView {
+public class QueRicoTextView extends AppCompatTextView {
 
     public QueRicoTextView(Context context) {
         super(context);
