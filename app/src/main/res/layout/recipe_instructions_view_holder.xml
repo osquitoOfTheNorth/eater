@@ -9,40 +9,26 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="15dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp">
         <oscar.com.eater.Views.QueRicoTextView
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_width="wrap_content"
+            android:layout_width="16dp"
             android:textSize="12sp"
-            android:text="@{ingredient.stepNumber}"
+            android:gravity="center_horizontal"
+            android:text="@{String.valueOf(ingredient.stepNum)}"
+
             custom:fontType="Nunito-Light.ttf"
             android:id="@+id/instruction_step_number"/>
         <oscar.com.eater.Views.QueRicoTextView
             android:textSize="12sp"
-            android:layout_weight="4"
+            android:paddingLeft="8dp"
             custom:fontType="Nunito-Light.ttf"
+            android:gravity="center_horizontal"
             android:id="@+id/instruction_text_view1"
-            android:text="@{String.valueOf(ingredient.quantity)}"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <oscar.com.eater.Views.QueRicoTextView
-            android:textSize="12sp"
-            android:layout_weight="4"
-            custom:fontType="Nunito-Light.ttf"
-            android:id="@+id/instruction_text_view2"
-            android:text="@{ingredient.measure.label}"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <oscar.com.eater.Views.QueRicoTextView
-            android:textSize="12sp"
-            android:layout_weight="4"
-            custom:fontType="Nunito-Light.ttf"
-            android:id="@+id/instruction_text_view3"
-            android:text="@{ingredient.food.label}"
+            android:text="@{String.valueOf(ingredient.line)}"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>

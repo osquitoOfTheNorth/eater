@@ -27,10 +27,10 @@ import oscar.com.eater.R;
 public class RecipeIngredientsAdapter extends RecyclerView.Adapter<IngredientViewHolder> {
 
 
-    private Ingredient[] mItems;
+    private String[] mItems;
     private final int HEADER_VIEW_TYPE = 0;
     private final int NORMAL_VIEW_TYPE = 1;
-    public RecipeIngredientsAdapter(Ingredient[] instructions) {
+    public RecipeIngredientsAdapter(String[] instructions) {
         mItems = instructions;
     }
 
@@ -40,10 +40,10 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<IngredientVie
     }
 
 
-    private Ingredient getItemOffsetByHeaderView(int i){
+    private String getItemOffsetByHeaderView(int i){
         switch(i){
             case 0:
-                return new Ingredient();
+                return "Ingredients";
             default:
                 return mItems[i-1];
         }
@@ -68,9 +68,9 @@ public class RecipeIngredientsAdapter extends RecyclerView.Adapter<IngredientVie
 
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
-        Ingredient ingredient = getItemOffsetByHeaderView(position);
-        ingredient.setStepNumber(position);
-        holder.bindView(ingredient);
+        String ingredient = getItemOffsetByHeaderView(position);
+        Ingredient i = new Ingredient(ingredient,position);
+        holder.bindView(i);
     }
 
     @Override

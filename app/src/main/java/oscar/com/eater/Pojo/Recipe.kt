@@ -28,8 +28,8 @@ class Recipe(
         var source : String = "") :Serializable{
 
 
-        @SerializedName("ingredients")
-        var ingredients : Array<Ingredient> = arrayOf()
+        @SerializedName("ingredientLines")
+        var ingredients : Array<String> = arrayOf()
 
         private val numFormatter = NumberFormat.getInstance()
 

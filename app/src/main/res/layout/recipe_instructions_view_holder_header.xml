@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <oscar.com.eater.Views.QueRicoTextView
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        custom:fontType="Nunito-Light.ttf"
-        android:id="@+id/header_view"/>
-</RelativeLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="ingredient"
+            type="oscar.com.eater.Pojo.Ingredient"/>
+    </data>
+    <RelativeLayout
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp">
+        <oscar.com.eater.Views.QueRicoTextView
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:text="Ingredients"
+            android:textAlignment="center"
+            custom:fontType="Nunito-Light.ttf"
+            android:id="@+id/header_view"/>
+    </RelativeLayout>
+</layout>
