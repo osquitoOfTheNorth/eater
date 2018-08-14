@@ -1,5 +1,7 @@
 package oscar.com.eater
 
+import java.util.*
+
 
 /**
  * Created by omenji on 3/16/17.
@@ -14,6 +16,5 @@ object ApplicationContants {
     val searchQueryStringKey = "SEARCH_QUERY_STRING_KEY"
     val appIDQueryParam = "app_id"
     val appKeyQueryParam = "app_key"
-
 
 }

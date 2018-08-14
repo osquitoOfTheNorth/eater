@@ -13,6 +13,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Random;
 
 import oscar.com.eater.Adapter.RecipeIngredientsAdapter;
@@ -38,12 +40,47 @@ public class RecipeDetailsFragment extends Fragment {
 
     public static final String TAG = "RecipeDetailsFragment";
 
+
+    private static double[] computeAverages(double[] input) {
+        double[] meanAndMedian =  {0.0, 0.0 };
+        int numberOfEntries = input.length;
+        int sumOfEntries = 0;
+        for(int i = 0; i < numberOfEntries;  i++){
+            sumOfEntries += input[i];
+        }
+        //Rounding off the division by first multiplying by 100 and then casting to int + dividing by 100
+        meanAndMedian[0] = roundToNearestHundredth(sumOfEntries / numberOfEntries)
+
+        //Sort input array
+        Arrays.sort(input);
+        int middleIndex = numberOfEntries / 2;
+        double median = 0.0;
+        if (numberOfEntries%2 == 0){
+            int leftOfMiddleIndex = middleIndex - 1;
+            double meanOfMiddle = input[middleIndex] + input[leftOfMiddleIndex] / 2;
+            median = roundToNearestHundredth(meanOfMiddle);
+        } else {
+            median = input[middleIndex];
+        }
+        meanAndMedian[1] = median;
+        return meanAndMedian;
+    }
+
+    private static double roundToNearestHundredth(double value){
+        BigDecimal rounderHelper = new BigDecimal(value);
+        return rounderHelper.round(new MathContext(2)).doubleValue();
+    }
+
+
     public static RecipeDetailsFragment getInstance(RecipeWrapper wrapper){
         Bundle bundle = new Bundle();
         bundle.putSerializable(ApplicationContants.INSTANCE.getRecipeDetails(), wrapper);
         RecipeDetailsFragment fragment = new RecipeDetailsFragment();
         fragment.setArguments(bundle);
         return fragment;
+
+
+
     }
     @Nullable
     @Override
