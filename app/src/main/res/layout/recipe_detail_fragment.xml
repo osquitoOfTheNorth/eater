@@ -83,12 +83,24 @@
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/add_to_schedule_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/schedule_recipe_icon"
-        android:layout_margin="16dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/floating_action_button_icon"
+        android:layout_margin="16dp">
+                <com.github.clans.fab.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/schedule_recipe_button"
+                        android:src="@drawable/schedule_recipe_icon"/>
+                <com.github.clans.fab.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/save_recipe_button"
+                        android:src="@drawable/floating_action_button_icon"/>
+        </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>

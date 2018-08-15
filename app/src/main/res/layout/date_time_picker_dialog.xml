@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="clickListener" type="oscar.com.eater.ViewModels.DateTimePickerViewModel" />
+    </data>
+    <LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+        <Button
+                android:onClick="@{ (view) -> clickListener.onSelectDateClicked() }"
+                android:fontFamily="@fonts/Nunito-Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/date_picker_label"/>
+        <Button
+                android:onClick="@{ (view) -> clickListener.onSelectTimeClicked() }"
+                android:fontFamily="@fonts/Nunito-Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/time_picker_label"/>
+</LinearLayout>
+</layout>

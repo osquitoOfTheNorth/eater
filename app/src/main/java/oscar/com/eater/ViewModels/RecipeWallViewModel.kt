@@ -24,18 +24,22 @@ class RecipeWallViewModel : ViewModel(), Observer<RecipeResponse> {
     private var errorData: MutableLiveData<String> = MutableLiveData()
     private var noResultsReturned: MutableLiveData<String> = MutableLiveData()
     private var query = ""
-    fun getRecipesForQueryString(string : String, getMore : Boolean) : LiveData<List<RecipeWrapper>>{
-        query = string
-        if(getMore){
-            recipes = MutableLiveData()
-        }
-        if(recipes.value == null || recipes.value?.isEmpty()!! || getMore) {
-                Observable.create(RecipeSearchObservable(RecipeQuery(from,to,string)))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this)
-        }
+    init {
+        recipes.value = ArrayList()
+    }
+    fun observeRecipesForQueryString() : LiveData<List<RecipeWrapper>>{
         return recipes
+    }
+
+    fun getRecipesForQueryString(string : String, getMore: Boolean) : List<RecipeWrapper> {
+        query = string
+        if(recipes.value?.isEmpty()!! || getMore) {
+            Observable.create(RecipeSearchObservable(RecipeQuery(from,to,string)))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this)
+        }
+        return recipes.value ?: ArrayList()
     }
 
     override fun onComplete() {
@@ -48,12 +52,12 @@ class RecipeWallViewModel : ViewModel(), Observer<RecipeResponse> {
 
     override fun onNext(value: RecipeResponse?) {
         value?.let{
-            if(value.totalResults <= 0){
+            if(it.totalResults <= 0){
                 noResultsReturned.postValue(String.format("Sorry, no results returned for the query: %s", query))
             } else {
-                from = value.to
-                to = value.to + 20
-                recipes.postValue(value.recipes)
+                from = it.to
+                to = it.to + 20
+                recipes.value = recipes.value?.plus(it.recipes)
             }
         }
 

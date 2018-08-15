@@ -66,7 +66,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (fragment == null) {
             fragment = createFragment();
             fragmentManager.beginTransaction()
-                           .add(R.id.activity_base, fragment)
+                           .replace(R.id.activity_base, fragment)
+                           .addToBackStack(null)
                            .commit();
         }
     }

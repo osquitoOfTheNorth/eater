@@ -59,7 +59,11 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeHolder>{
 
 
     public void addToScrollable(List<RecipeWrapper> newRecipes){
-        mRecipes.addAll(newRecipes);
+        mRecipes = newRecipes;
         notifyDataSetChanged();
+    }
+
+    public void setRecipes(List<RecipeWrapper> mRecipes) {
+        this.mRecipes = mRecipes;
     }
 }

@@ -29,34 +29,19 @@ class RecipeWallFragment : Fragment() {
     private var searchQuery: String = ""
     private var recipeWallViewModel : RecipeWallViewModel? = null
     private var loadingMore  = false
+    private var mRecipeAdapater : RecipeViewAdapter? = null
     private val loadingIconDrawable: Drawable?
         get() {
             loadingiconID++
             return if (loadingiconID % 2 == 0) activity?.getDrawable(R.drawable.loading_image1) else activity?.getDrawable(R.drawable.loading_image2)
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.recipe_wall_fragment, container, false)
-        return v
-    }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragment_recipe_recycler_view_holder.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        fragment_recipe_recycler_view_holder.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val linearLayoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                //Prefetch new entries when we are 5 away from the end of the list
-                if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.itemCount - 5 && !loadingMore) {
-                    loadingMore = true
-                    getRecipesForSearchQuery(true)
-                }
-            }
-        })
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        extractSearchQuery()
         recipeWallViewModel = ViewModelProviders.of(this).get(RecipeWallViewModel::class.java)
-        val adapter = RecipeViewAdapter(ArrayList())
-        fragment_recipe_recycler_view_holder.adapter = adapter
+
 
         recipeWallViewModel?.observeErrors()?.observe(this, Observer { errorMessage ->
             val modal = AlertDialog.Builder(context)
@@ -74,24 +59,55 @@ class RecipeWallFragment : Fragment() {
             hideLoadingAnimation()
         })
 
-        extractSearchQuery()
-        showLoadingAnimation()
-        getRecipesForSearchQuery(false)
-    }
-
-    private fun getRecipesForSearchQuery(getMore : Boolean) {
-        recipeWallViewModel?.getRecipesForQueryString(searchQuery,getMore)?.observe(this, Observer { list ->
-            list?.let {
-                if(!getMore){
-                    loading_icon.animation = null
-                    loading_icon.visibility = View.GONE
-                    fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity,R.anim.fade_in_animation))
-                } else {
-                    loadingMore = false
-                }
-                (fragment_recipe_recycler_view_holder.adapter as RecipeViewAdapter).addToScrollable(list)
+        recipeWallViewModel?.observeRecipesForQueryString()?.observe(this, Observer { recipes ->
+            if(recipes?.isNotEmpty()!!) {
+                hideLoadingAnimation()
+                loadingMore = false
+                mRecipeAdapater?.addToScrollable(recipes)
             }
         })
+
+
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val v = inflater.inflate(R.layout.recipe_wall_fragment, container, false)
+        return v
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mRecipeAdapater = RecipeViewAdapter(ArrayList())
+        fragment_recipe_recycler_view_holder.adapter = mRecipeAdapater
+        fragment_recipe_recycler_view_holder.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        fragment_recipe_recycler_view_holder.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                //Prefetch new entries when we are 7 away from the end of the list
+                if (linearLayoutManager.findLastVisibleItemPosition() >= linearLayoutManager.itemCount - 7 && !loadingMore) {
+                    getMoreRecipes()
+                }
+            }
+        })
+        showLoadingAnimation()
+        getRecipesForSearchQuery()
+    }
+
+    private fun getRecipesForSearchQuery() {
+        val recipes = recipeWallViewModel?.getRecipesForQueryString(searchQuery, false)
+        if (recipes != null && recipes.isNotEmpty()) {
+            loadingMore = false
+            hideLoadingAnimation()
+            mRecipeAdapater?.let {
+                it.setRecipes(recipes)
+                it.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun getMoreRecipes(){
+        loadingMore = true
+        recipeWallViewModel?.getRecipesForQueryString(searchQuery, true)
     }
 
     private fun extractSearchQuery() {
@@ -102,7 +118,6 @@ class RecipeWallFragment : Fragment() {
         loading_icon.visibility = View.VISIBLE
         loading_icon.setImageDrawable(loadingIconDrawable)
         loading_icon.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_animation))
-        fragment_recipe_recycler_view_holder.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.fade_out_animation))
     }
 
     private fun hideLoadingAnimation(){

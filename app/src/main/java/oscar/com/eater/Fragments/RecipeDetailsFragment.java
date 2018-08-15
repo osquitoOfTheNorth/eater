@@ -11,16 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Date;
 import java.util.Random;
 
 import oscar.com.eater.Adapter.RecipeIngredientsAdapter;
 import oscar.com.eater.ApplicationContants;
 import oscar.com.eater.Pojo.RecipeWrapper;
 import oscar.com.eater.R;
+import oscar.com.eater.ViewModels.DateTimePickerViewModel;
 import oscar.com.eater.Views.QueRicoTextView;
 import oscar.com.eater.Views.RatingView;
 import oscar.com.eater.Views.RecipeMetricView;
@@ -37,39 +40,11 @@ public class RecipeDetailsFragment extends Fragment {
     private RecipeMetricView metricView;
     private QueRicoTextView mRecipeTitle;
     private QueRicoTextView mRecipeTypesTextbox;
+    private FloatingActionButton mSaveRecipeButton;
+    private FloatingActionButton mScheduleRecipeButton;
+
 
     public static final String TAG = "RecipeDetailsFragment";
-
-
-    private static double[] computeAverages(double[] input) {
-        double[] meanAndMedian =  {0.0, 0.0 };
-        int numberOfEntries = input.length;
-        int sumOfEntries = 0;
-        for(int i = 0; i < numberOfEntries;  i++){
-            sumOfEntries += input[i];
-        }
-        //Rounding off the division by first multiplying by 100 and then casting to int + dividing by 100
-        meanAndMedian[0] = roundToNearestHundredth(sumOfEntries / numberOfEntries)
-
-        //Sort input array
-        Arrays.sort(input);
-        int middleIndex = numberOfEntries / 2;
-        double median = 0.0;
-        if (numberOfEntries%2 == 0){
-            int leftOfMiddleIndex = middleIndex - 1;
-            double meanOfMiddle = input[middleIndex] + input[leftOfMiddleIndex] / 2;
-            median = roundToNearestHundredth(meanOfMiddle);
-        } else {
-            median = input[middleIndex];
-        }
-        meanAndMedian[1] = median;
-        return meanAndMedian;
-    }
-
-    private static double roundToNearestHundredth(double value){
-        BigDecimal rounderHelper = new BigDecimal(value);
-        return rounderHelper.round(new MathContext(2)).doubleValue();
-    }
 
 
     public static RecipeDetailsFragment getInstance(RecipeWrapper wrapper){
@@ -85,6 +60,21 @@ public class RecipeDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View.OnClickListener saveButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+
+        View.OnClickListener scheduleButtonClickListener = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().add(DateTimePickerDialogFragment.Companion.getInstance(),
+                        DateTimePickerDialogFragment.Companion.getTag()).commit();
+            }
+        };
+
 
         View v = inflater.inflate(R.layout.recipe_detail_fragment,container,false);
         Bundle bundle = getArguments();
@@ -94,6 +84,10 @@ public class RecipeDetailsFragment extends Fragment {
         metricView = v.findViewById(R.id.recipe_metrics);
         metricView.setMetrics(detailRecipe.getRecipe().getRecipeMetrics());
         mRatingView =  v.findViewById(R.id.rating_view);
+        mSaveRecipeButton = v.findViewById(R.id.save_recipe_button);
+        mSaveRecipeButton.setOnClickListener(saveButtonClickListener);
+        mScheduleRecipeButton = v.findViewById(R.id.schedule_recipe_button);
+        mScheduleRecipeButton.setOnClickListener(scheduleButtonClickListener);
         mRatingView.setMaxRating(5);
         //This api doesnt support the notion of a rating so I have to randomly make this shit up
         //So pointless.

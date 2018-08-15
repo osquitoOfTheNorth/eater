@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">eater</string>
+    <string name="date_picker_label">Select a Date:</string>
+    <string name="time_picker_label">Select a Time:</string>
 </resources>
