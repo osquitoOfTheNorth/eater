@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">eater</string>
-    <string name="date_picker_label">Select a Date:</string>
-    <string name="time_picker_label">Select a Time:</string>
+    <string name="scheduler_dialog_header">Schedule This Recipe</string>
+    <string name="schedule_dialog_explination">Schedule this recipe by selecting a date and time. When the time
+    comes, you will be reminded that its time to get cooking!</string>
+    <string name="schedule">Schedule</string>
+    <string name="at">At</string>
 </resources>

@@ -15,6 +15,7 @@ import oscar.com.eater.R
 import oscar.com.eater.ViewModelFactories.ViewModelFactory
 import oscar.com.eater.ViewModels.DateTimePickerViewModel
 import oscar.com.eater.databinding.DateTimePickerDialogBinding
+import java.util.*
 
 class DateTimePickerDialogFragment : DialogFragment(), DateTimePickerClickListener{
 
@@ -36,14 +37,20 @@ class DateTimePickerDialogFragment : DialogFragment(), DateTimePickerClickListen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val dataBinding = DataBindingUtil.inflate<DateTimePickerDialogBinding>(inflater,R.layout.date_time_picker_dialog,
                 container,false)
-        dataBinding.clickListener = viewModel
+        dataBinding.viewModel = viewModel
         return dataBinding.root
     }
 
     override fun onPickerButtonClicked(type: PickerType) {
+        val today = Calendar.getInstance()
+        val thisYear = today.get(Calendar.YEAR)
+        val thisMonth = today.get(Calendar.MONTH)
+        val thisDayOfMonth = today.get(Calendar.DAY_OF_MONTH)
+        val currentHour = today.get(Calendar.HOUR)
+        val currentMinute = today.get(Calendar.MINUTE)
         when(type){
-            PickerType.DATE -> { DatePickerDialog(context).show()}
-            PickerType.TIME -> { TimePickerDialog(context, null, 1,1,false).show()}
+            PickerType.DATE -> { DatePickerDialog(context, viewModel, thisYear,thisMonth,thisDayOfMonth).show()}
+            PickerType.TIME -> { TimePickerDialog(context, viewModel, currentHour,currentMinute,false).show()}
         }
     }
 }

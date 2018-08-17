@@ -1,24 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="clickListener" type="oscar.com.eater.ViewModels.DateTimePickerViewModel" />
+        <variable name="viewModel" type="oscar.com.eater.ViewModels.DateTimePickerViewModel" />
     </data>
     <LinearLayout
               android:orientation="vertical"
+              android:minHeight="350dp"
+              android:minWidth="250dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+        <oscar.com.eater.Views.QueRicoTextView
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scheduler_dialog_header"/>
         <Button
-                android:onClick="@{ (view) -> clickListener.onSelectDateClicked() }"
+                android:background="@android:color/transparent"
+                android:onClick="@{ (view) -> viewModel.onSelectDateClicked() }"
                 android:fontFamily="@fonts/Nunito-Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/date_picker_label"/>
+                android:text="@{viewModel.humanReadableDate}"/>
+
+
+        <oscar.com.eater.Views.QueRicoTextView
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/at"/>
+
         <Button
-                android:onClick="@{ (view) -> clickListener.onSelectTimeClicked() }"
+                android:background="@android:color/transparent"
+                android:onClick="@{ (view) -> viewModel.onSelectTimeClicked() }"
                 android:fontFamily="@fonts/Nunito-Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/time_picker_label"/>
+                android:text="@{viewModel.humanReadableTime}"/>
+
+        <oscar.com.eater.Views.QueRicoTextView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:textAlignment="center"
+                android:text="@string/schedule_dialog_explination"/>
+
+
+        <Button android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/schedule"
+                android:onClick="@{(view) -> viewModel.onSchedule()"/>
+
 </LinearLayout>
 </layout>
