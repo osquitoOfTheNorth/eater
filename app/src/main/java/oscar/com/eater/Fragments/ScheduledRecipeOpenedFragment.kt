@@ -6,16 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import oscar.com.eater.Activities.ScheduledRecipeActivity
 import oscar.com.eater.R
 
 class ScheduledRecipeOpenedFragment : Fragment() {
 
+
+    companion object {
+        fun getInstance(url : String) : ScheduledRecipeOpenedFragment{
+            val args = Bundle()
+            args.putSerializable(RECIPE_URL_KEY, url)
+            val fragment = ScheduledRecipeOpenedFragment()
+            fragment.arguments = args
+            return fragment
+        }
+
+        val RECIPE_URL_KEY = "RECIPE_URL_KEY"
+    }
     var recipeUrl : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(arguments?.containsKey(ScheduledRecipeActivity.recipeKey) == true){
-            recipeUrl = arguments?.getString(ScheduledRecipeActivity.recipeKey) ?: ""
+        if(arguments?.containsKey(RECIPE_URL_KEY) == true){
+            recipeUrl = arguments?.getString(RECIPE_URL_KEY) ?: ""
         }
     }
 

@@ -1,7 +1,7 @@
 package oscar.com.eater.ViewModels
 
 import android.app.*
-import android.app.PendingIntent.FLAG_ONE_SHOT
+import android.app.PendingIntent.FLAG_CANCEL_CURRENT
 import android.arch.lifecycle.AndroidViewModel
 import android.content.Context
 import android.content.Intent
@@ -46,10 +46,8 @@ class DateTimePickerViewModel(private val listener : DateTimePickerClickListener
 
     fun onScheduleClick(){
         val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val rightNow = Calendar.getInstance()
-        val distanceToDateAndTimeSelected = date.timeInMillis - rightNow.timeInMillis
         val pendingIntent = getPendingIntent()
-        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + distanceToDateAndTimeSelected, pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC, date.timeInMillis, pendingIntent)
         listener.onScheduled()
     }
 
@@ -57,6 +55,6 @@ class DateTimePickerViewModel(private val listener : DateTimePickerClickListener
         val intent = Intent()
         intent.putExtra(ScheduledActionReceiver.SCHEDULED_RECIPE_WEB_URL_INTENT_KEY, recipeUrl)
         intent.setClass(app, ScheduledActionReceiver::class.java)
-        return PendingIntent.getBroadcast(app, ScheduledActionReceiver.SCHEDULED_RECIPE_RECEIVER_CODE, intent, FLAG_ONE_SHOT)
+        return PendingIntent.getBroadcast(app, ScheduledActionReceiver.SCHEDULED_RECIPE_RECEIVER_CODE, intent, FLAG_CANCEL_CURRENT)
     }
 }

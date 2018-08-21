@@ -10,7 +10,7 @@ class ScheduledActionReceiver : BroadcastReceiver(){
 
 
     companion object {
-        val SCHEDULED_RECIPE_RECEIVER_CODE = 1111
+        val SCHEDULED_RECIPE_RECEIVER_CODE = 1
         val SCHEDULED_RECIPE_WEB_URL_INTENT_KEY = "SCHEDULED_RECIPE_WEB_URL_INTENT_KEY"
     }
     override fun onReceive(context: Context?, intent: Intent?) {

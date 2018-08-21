@@ -19,7 +19,7 @@
 
         <activity android:name=".Activities.ScheduledRecipeActivity">
         </activity>
-        <receiver android:name=".Receivers.ScheduledRecipeReceiver" />
+        <receiver android:name=".Receivers.ScheduledActionReceiver" />
     </application>
 
 </manifest>
