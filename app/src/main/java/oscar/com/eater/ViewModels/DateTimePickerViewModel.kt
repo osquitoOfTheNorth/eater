@@ -8,10 +8,9 @@ import android.content.Intent
 import android.databinding.ObservableField
 import android.widget.DatePicker
 import android.widget.TimePicker
-import oscar.com.eater.Activities.ScheduledRecipeActivity
 import oscar.com.eater.Enum.PickerType
 import oscar.com.eater.Interfaces.DateTimePickerClickListener
-import oscar.com.eater.Receivers.ScheduledRecipeReceiver
+import oscar.com.eater.Receivers.ScheduledActionReceiver
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,15 +49,14 @@ class DateTimePickerViewModel(private val listener : DateTimePickerClickListener
         val rightNow = Calendar.getInstance()
         val distanceToDateAndTimeSelected = date.timeInMillis - rightNow.timeInMillis
         val pendingIntent = getPendingIntent()
-        alarmManager.set(AlarmManager.RTC,distanceToDateAndTimeSelected,pendingIntent)
+        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + distanceToDateAndTimeSelected, pendingIntent)
         listener.onScheduled()
     }
 
     private fun getPendingIntent() : PendingIntent{
         val intent = Intent()
-        intent.putExtra(ScheduledRecipeActivity.recipeKey, recipeUrl)
-        intent.setClass(app, ScheduledRecipeReceiver::class.java)
-        return PendingIntent.getBroadcast(app,ScheduledRecipeActivity.SCHEDULED_RECIPE_OPENED_REQUEST_CODE,
-                intent, FLAG_ONE_SHOT)
+        intent.putExtra(ScheduledActionReceiver.SCHEDULED_RECIPE_WEB_URL_INTENT_KEY, recipeUrl)
+        intent.setClass(app, ScheduledActionReceiver::class.java)
+        return PendingIntent.getBroadcast(app, ScheduledActionReceiver.SCHEDULED_RECIPE_RECEIVER_CODE, intent, FLAG_ONE_SHOT)
     }
 }
