@@ -5,4 +5,5 @@
     comes, you will be reminded that its time to get cooking!</string>
     <string name="schedule">Schedule</string>
     <string name="at">At</string>
+    <string name="scheduled_toast_notification">Recipe Scheduled! You will be notified when it\'s time to start coooking</string>
 </resources>

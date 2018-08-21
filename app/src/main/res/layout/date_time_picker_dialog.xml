@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel" type="oscar.com.eater.ViewModels.DateTimePickerViewModel" />
     </data>
     <LinearLayout
               android:orientation="vertical"
               android:minHeight="350dp"
-              android:minWidth="250dp"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:minWidth="300dp"
+              android:layout_width="250dp"
+              android:layout_height="350dp">
 
         <oscar.com.eater.Views.QueRicoTextView
+                custom:fontType="Nunito-Black.ttf"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -27,6 +29,8 @@
 
         <oscar.com.eater.Views.QueRicoTextView
                 android:textSize="12sp"
+                custom:fontType="Nunito-Light.ttf"
+                android:fontFamily="@fonts/Nunito-Light"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,23 +39,28 @@
         <Button
                 android:background="@android:color/transparent"
                 android:onClick="@{ (view) -> viewModel.onSelectTimeClicked() }"
-                android:fontFamily="@fonts/Nunito-Light"
                 android:layout_width="match_parent"
+                android:fontFamily="@fonts/Nunito-Light"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.humanReadableTime}"/>
 
-        <oscar.com.eater.Views.QueRicoTextView
+        <TextView
+                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:text="@string/schedule_dialog_explination"/>
 
-
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+        <Button
                 android:text="@string/schedule"
-                android:onClick="@{(view) -> viewModel.onSchedule()"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:onClick="@{(view) -> viewModel.onScheduleClick() }"/>
+
+
+
 
 </LinearLayout>
 </layout>

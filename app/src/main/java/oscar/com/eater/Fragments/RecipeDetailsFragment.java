@@ -67,13 +67,6 @@ public class RecipeDetailsFragment extends Fragment {
             }
         };
 
-        View.OnClickListener scheduleButtonClickListener = new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                getFragmentManager().beginTransaction().add(DateTimePickerDialogFragment.Companion.getInstance(),
-                        DateTimePickerDialogFragment.Companion.getTag()).commit();
-            }
-        };
 
 
         View v = inflater.inflate(R.layout.recipe_detail_fragment,container,false);
@@ -86,8 +79,7 @@ public class RecipeDetailsFragment extends Fragment {
         mRatingView =  v.findViewById(R.id.rating_view);
         mSaveRecipeButton = v.findViewById(R.id.save_recipe_button);
         mSaveRecipeButton.setOnClickListener(saveButtonClickListener);
-        mScheduleRecipeButton = v.findViewById(R.id.schedule_recipe_button);
-        mScheduleRecipeButton.setOnClickListener(scheduleButtonClickListener);
+
         mRatingView.setMaxRating(5);
         //This api doesnt support the notion of a rating so I have to randomly make this shit up
         //So pointless.
@@ -101,6 +93,18 @@ public class RecipeDetailsFragment extends Fragment {
         loadImageIntoImageView(detailRecipe.getRecipe().getRecipeImage(),mImageViewBanner);
         mRecipeTypesTextbox =  v.findViewById(R.id.recipe_description);
         mRecipeTypesTextbox.setText(detailRecipe.getRecipe().getSource());
+        final String recipeUrl = detailRecipe.getRecipe().getUri();
+
+        View.OnClickListener scheduleButtonClickListener = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().add(DateTimePickerDialogFragment.Companion.getInstance(recipeUrl),
+                        DateTimePickerDialogFragment.Companion.getTag()).commit();
+            }
+        };
+        mScheduleRecipeButton = v.findViewById(R.id.schedule_recipe_button);
+        mScheduleRecipeButton.setOnClickListener(scheduleButtonClickListener);
+
         return v;
 
 

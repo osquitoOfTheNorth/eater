@@ -5,4 +5,6 @@ import oscar.com.eater.Enum.PickerType
 interface DateTimePickerClickListener {
 
     fun onPickerButtonClicked(type : PickerType)
+
+    fun onScheduled()
 }

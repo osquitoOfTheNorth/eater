@@ -1,17 +1,23 @@
 package oscar.com.eater.ViewModels
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.arch.lifecycle.ViewModel
+import android.app.*
+import android.app.PendingIntent.FLAG_ONE_SHOT
+import android.arch.lifecycle.AndroidViewModel
+import android.content.Context
+import android.content.Intent
 import android.databinding.ObservableField
 import android.widget.DatePicker
 import android.widget.TimePicker
+import oscar.com.eater.Activities.ScheduledRecipeActivity
 import oscar.com.eater.Enum.PickerType
 import oscar.com.eater.Interfaces.DateTimePickerClickListener
+import oscar.com.eater.Receivers.ScheduledRecipeReceiver
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateTimePickerViewModel(private val listener : DateTimePickerClickListener) : ViewModel(),
+class DateTimePickerViewModel(private val listener : DateTimePickerClickListener,
+                              private val app : Application,
+                              private val recipeUrl : String) : AndroidViewModel(app),
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private var date : Calendar = Calendar.getInstance()
@@ -39,7 +45,20 @@ class DateTimePickerViewModel(private val listener : DateTimePickerClickListener
         humanReadableTime.set(timeFormatter.format(date.time))
     }
 
-    fun onSchedule(){
+    fun onScheduleClick(){
+        val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val rightNow = Calendar.getInstance()
+        val distanceToDateAndTimeSelected = date.timeInMillis - rightNow.timeInMillis
+        val pendingIntent = getPendingIntent()
+        alarmManager.set(AlarmManager.RTC,distanceToDateAndTimeSelected,pendingIntent)
+        listener.onScheduled()
+    }
 
+    private fun getPendingIntent() : PendingIntent{
+        val intent = Intent()
+        intent.putExtra(ScheduledRecipeActivity.recipeKey, recipeUrl)
+        intent.setClass(app, ScheduledRecipeReceiver::class.java)
+        return PendingIntent.getBroadcast(app,ScheduledRecipeActivity.SCHEDULED_RECIPE_OPENED_REQUEST_CODE,
+                intent, FLAG_ONE_SHOT)
     }
 }
