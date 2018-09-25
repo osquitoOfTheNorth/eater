@@ -4,6 +4,10 @@
     <string name="schedule_dialog_explination">Schedule this recipe by selecting a date and time. When the time
     comes, you will be reminded that its time to get cooking!</string>
     <string name="schedule">Schedule</string>
+    <string name="sign_in_error">Sorry! There was an error signing in. Account related features will be unavailable</string>
     <string name="at">At</string>
+    <string name="account">Account</string>
+    <string name="search">Search</string>
+    <string name="welcome">Welcome Back %1$s!</string>
     <string name="scheduled_toast_notification">Recipe Scheduled! You will be notified when it\'s time to start coooking</string>
 </resources>

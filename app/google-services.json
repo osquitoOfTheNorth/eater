@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "243391665875",
+    "firebase_url": "https://querico-53ad8.firebaseio.com",
+    "project_id": "querico-53ad8",
+    "storage_bucket": "querico-53ad8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243391665875:android:ffa2fa9a1c1db7e6",
+        "android_client_info": {
+          "package_name": "oscar.com.eater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243391665875-amov7vjlnciv6jmiftskoqbhrqpp04v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "oscar.com.eater",
+            "certificate_hash": "cd66a50446361b0ddea71abb057464cbdc1acdb8"
+          }
+        },
+        {
+          "client_id": "243391665875-dfunkjciajbscokdl40vltf5c1u0q0dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzidswCBTysGtoAMwV2L0l9mJx7GVlpxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243391665875-dfunkjciajbscokdl40vltf5c1u0q0dh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

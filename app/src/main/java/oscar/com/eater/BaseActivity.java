@@ -2,6 +2,8 @@ package oscar.com.eater;
 
 import android.Manifest;
 
+import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.pm.PackageManager;
@@ -22,6 +24,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected int getLayoutResId() {
         return R.layout.activity_base;
     }
+
+    @IdRes
+    protected int getContainerId(){
+        return R.id.activity_base;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(in, out)
                    .addToBackStack("TAG")
-                   .replace(R.id.activity_base,fragment)
+                   .replace(getContainerId(),fragment)
                    .commit();
     }
 
@@ -62,11 +70,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     private void addFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.activity_base);
+        Fragment fragment = fragmentManager.findFragmentById(getContainerId());
         if (fragment == null) {
             fragment = createFragment();
             FragmentTransaction transaction = fragmentManager.beginTransaction()
-                           .replace(R.id.activity_base, fragment);
+                           .replace(getContainerId(), fragment);
             transaction.commit();
         }
     }

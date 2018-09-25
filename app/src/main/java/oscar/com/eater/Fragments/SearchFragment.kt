@@ -2,11 +2,13 @@ package oscar.com.eater.Fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import com.google.firebase.database.FirebaseDatabase
 import oscar.com.eater.Interfaces.SearchListener
 import oscar.com.eater.R
 
