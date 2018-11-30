@@ -11,20 +11,20 @@ import com.google.firebase.auth.FirebaseUser;
 import oscar.com.eater.R;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mFireBaseAuth;
     private int FIREBASE_SIGN_IN = 1111;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFireBaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mFireBaseAuth = FirebaseAuth.getInstance();
         if(mFireBaseAuth.getCurrentUser() != null){
             startActivity(getSearchActivityIntent());
         } else {
-            List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
+            List<AuthUI.IdpConfig> providers = Collections.singletonList(new AuthUI.IdpConfig.EmailBuilder().build());
             startActivityForResult(AuthUI
                     .getInstance()
                     .createSignInIntentBuilder()

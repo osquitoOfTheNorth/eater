@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorAccentWhite"
         android:textSize="22sp"
         android:fontFamily="casual"
         android:layout_width="match_parent"
@@ -18,11 +18,12 @@
         app:layout_constraintBottom_toTopOf="@id/recipe_search_view_container" />
 
     <SearchView
+        android:searchIcon="@drawable/search_icon"
         android:queryHint="Chicken..."
         android:id="@+id/recipe_search_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
+        android:background="@color/colorAccentWhite"
         app:layout_constraintBottom_toTopOf="@+id/guideline2" />
 
     <android.support.constraint.Guideline
