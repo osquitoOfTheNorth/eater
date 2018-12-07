@@ -93,13 +93,7 @@ public class RecipeDetailsFragment extends Fragment {
         View.OnClickListener saveRecipeClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance("https://querico-53ad8.firebaseio.com/").getReference().setValue(recipeUrl)
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e("Tag", e.getMessage());
-                            }
-                        });
+                FirebaseDatabase.getInstance("https://querico-53ad8.firebaseio.com").getReference("/recipes").setValue(recipeUrl);
             }
         };
         mScheduleRecipeButton = v.findViewById(R.id.schedule_recipe_button);

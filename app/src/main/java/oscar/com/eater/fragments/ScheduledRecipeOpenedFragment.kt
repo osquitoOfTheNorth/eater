@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.TextView
 import oscar.com.eater.R
 
@@ -32,8 +33,8 @@ class ScheduledRecipeOpenedFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.scheduled_recipe_opened_fragment, container, false)
-        val textView = view.findViewById<TextView>(R.id.recipe_url)
-        textView.text = recipeUrl
+        val webView = view.findViewById<WebView>(R.id.recipe_url)
+        webView.loadUrl(recipeUrl)
         return view
     }
 
