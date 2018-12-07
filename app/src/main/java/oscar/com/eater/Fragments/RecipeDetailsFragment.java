@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -43,7 +44,6 @@ public class RecipeDetailsFragment extends Fragment {
     private FloatingActionButton mSaveRecipeButton;
     private FloatingActionButton mScheduleRecipeButton;
 
-
     public static final String TAG = "RecipeDetailsFragment";
 
 
@@ -60,15 +60,6 @@ public class RecipeDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View.OnClickListener saveButtonClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        };
-
-
-
         View v = inflater.inflate(R.layout.recipe_detail_fragment,container,false);
         Bundle bundle = getArguments();
         RecipeWrapper detailRecipe = (RecipeWrapper) bundle.getSerializable(ApplicationContants.INSTANCE.getRecipeDetails());
@@ -77,9 +68,6 @@ public class RecipeDetailsFragment extends Fragment {
         metricView = v.findViewById(R.id.recipe_metrics);
         metricView.setMetrics(detailRecipe.getRecipe().getRecipeMetrics());
         mRatingView =  v.findViewById(R.id.rating_view);
-        mSaveRecipeButton = v.findViewById(R.id.save_recipe_button);
-        mSaveRecipeButton.setOnClickListener(saveButtonClickListener);
-
         mRatingView.setMaxRating(5);
         //This api doesnt support the notion of a rating so I have to randomly make this shit up
         //So pointless.
@@ -102,8 +90,18 @@ public class RecipeDetailsFragment extends Fragment {
                         DateTimePickerDialogFragment.Companion.getTag()).commit();
             }
         };
+
+        View.OnClickListener saveRecipeClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance("https://querico-53ad8.firebaseio.com/").getReference().setValue(recipeUrl);
+            }
+        };
         mScheduleRecipeButton = v.findViewById(R.id.schedule_recipe_button);
         mScheduleRecipeButton.setOnClickListener(scheduleButtonClickListener);
+
+        mSaveRecipeButton = v.findViewById(R.id.save_recipe_button);
+        mSaveRecipeButton.setOnClickListener(saveRecipeClickListener);
 
         return v;
 
