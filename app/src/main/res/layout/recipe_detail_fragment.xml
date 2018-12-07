@@ -27,7 +27,7 @@
                 <RelativeLayout
                     android:layout_width="290dp"
                     android:layout_height="200dp">
-                    <oscar.com.eater.Views.QueRicoTextView
+                    <oscar.com.eater.views.QueRicoTextView
                         android:layout_width="wrap_content"
                         android:textSize="12sp"
                         android:id="@+id/recipe_description"
@@ -35,7 +35,7 @@
                         android:layout_marginTop="@dimen/recipe_detail_card_element_spacing"
                         android:maxLines="1"
                         android:layout_height="wrap_content"/>
-                    <oscar.com.eater.Views.QueRicoTextView
+                    <oscar.com.eater.views.QueRicoTextView
                         android:layout_below="@+id/recipe_description"
                         android:textSize="20sp"
                         android:id="@+id/recipe_title"
@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/recipe_detail_card_element_spacing"
                         android:layout_centerHorizontal="true">
-                            <oscar.com.eater.Views.RatingView
+                            <oscar.com.eater.views.RatingView
                             android:id="@+id/rating_view"
                             custom:fillColor="@color/colorPrimary"
                             custom:shouldCenter="true"
@@ -63,7 +63,7 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <oscar.com.eater.Views.RecipeMetricView
+                        <oscar.com.eater.views.RecipeMetricView
                             custom:metricFontSize="@dimen/recipe_metrics_font_size"
                             custom:textColorMetric="@color/black"
                             custom:textFontName="Nunito-ExtraLight.ttf"

@@ -9,17 +9,17 @@
         android:supportsRtl="true"
         android:name="oscar.com.eater.EaterApplication"
         android:theme="@style/EaterTheme">
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.SearchActivity"/>
-        <activity android:name=".Activities.ScheduledRecipeActivity">
+        <activity android:name=".activities.SearchActivity"/>
+        <activity android:name=".activities.ScheduledRecipeActivity">
         </activity>
-        <receiver android:name=".Receivers.ScheduledActionReceiver" />
+        <receiver android:name=".receivers.ScheduledActionReceiver" />
     </application>
 
 </manifest>

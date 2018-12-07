@@ -4,7 +4,7 @@
     <data>
         <variable
             name="ingredient"
-            type="oscar.com.eater.Pojo.Ingredient"/>
+            type="oscar.com.eater.pojo.Ingredient"/>
     </data>
     <LinearLayout
         android:orientation="horizontal"
@@ -13,7 +13,7 @@
         android:paddingBottom="15dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp">
-        <oscar.com.eater.Views.QueRicoTextView
+        <oscar.com.eater.views.QueRicoTextView
             android:layout_height="match_parent"
             android:layout_width="16dp"
             android:textSize="12sp"
@@ -22,7 +22,7 @@
 
             custom:fontType="Nunito-Light.ttf"
             android:id="@+id/instruction_step_number"/>
-        <oscar.com.eater.Views.QueRicoTextView
+        <oscar.com.eater.views.QueRicoTextView
             android:textSize="12sp"
             android:paddingLeft="8dp"
             custom:fontType="Nunito-Light.ttf"

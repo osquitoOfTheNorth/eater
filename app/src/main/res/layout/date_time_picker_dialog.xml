@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="viewModel" type="oscar.com.eater.ViewModels.DateTimePickerViewModel" />
+        <variable name="viewModel" type="oscar.com.eater.viewmodels.DateTimePickerViewModel" />
     </data>
     <LinearLayout
             android:background="@color/colorAccentWhite"
@@ -12,7 +12,7 @@
               android:layout_width="250dp"
               android:layout_height="350dp">
 
-        <oscar.com.eater.Views.QueRicoTextView
+        <oscar.com.eater.views.QueRicoTextView
                 android:textColor="@color/black"
                 custom:fontType="Nunito-Black.ttf"
                 android:textSize="20sp"
@@ -30,7 +30,7 @@
                 android:text="@{viewModel.humanReadableDate}"/>
 
 
-        <oscar.com.eater.Views.QueRicoTextView
+        <oscar.com.eater.views.QueRicoTextView
                 android:textSize="12sp"
                 custom:fontType="Nunito-Light.ttf"
                 android:fontFamily="@fonts/Nunito-Light"
