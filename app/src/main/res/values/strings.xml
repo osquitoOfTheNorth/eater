@@ -9,5 +9,9 @@
     <string name="account">Account</string>
     <string name="search">Search</string>
     <string name="welcome">Welcome Back %1$s!</string>
+    <string name="recipe_saved">Recipe Saved Successfully! You can review your saved recipes in the account tab.</string>
     <string name="scheduled_toast_notification">Recipe Scheduled! You will be notified when it\'s time to start coooking</string>
+    <string name="unable_to_save_recipe">We are unable to save your recipe! Please try again later.</string>\
+    <string name="unable_to_load_recipes">We are unable to load your recipes! Please try again later.</string>
+    <string name="unable_to_load_user_date">We are unable to load your user data! You will be unable to save any new recipes.</string>
 </resources>

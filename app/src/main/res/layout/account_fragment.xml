@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="viewModel" type="oscar.com.eater.viewmodels.AccountViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
-            android:background="@color/colorAccent"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
-        <ImageView
-                android:id="@+id/icon_view"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="32dp"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/auth_icon" app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorAccentWhite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintTop_toBottomOf="@id/icon_view"
+                  android:layout_gravity="center"
                   android:layout_marginTop="8dp"
                   android:textColor="@color/black"
-                  android:text="@{viewModel.helloString}"
-        />
+                  android:text="@{viewModel.helloString}"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <TextView
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Saved Recipes:"/>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/saved_recipes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
 </layout>
