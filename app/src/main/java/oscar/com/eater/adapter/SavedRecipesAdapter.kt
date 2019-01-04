@@ -12,7 +12,7 @@ class SavedRecipesAdapter(private val context: Context,
                           private var savedRecipes: List<SavedRecipe>) : RecyclerView.Adapter<SavedRecipeViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedRecipeViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.saved_recipe_layout_vh, parent, false)
-        return SavedRecipeViewHolder(view)
+        return SavedRecipeViewHolder(view, context)
     }
 
     override fun getItemCount(): Int {
